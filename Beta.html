@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>macOS 15</title>
+    <!-- <link rel="icon" href="Innovation OS icon.png" sizes="512x512"> -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: url('background.png');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        position: relative;
+      }
+      
+      .overlay {
+        position: absolute;
+        top: calc(100vh - 70px);
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 1000px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        /* animation: slideIn 0.5s forwards; */
+      }
+
+      /* @keyframes slideIn { */
+        /* 0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      } */
+
+      .custom-overlay {
+        position: absolute;
+        /* top: calc(100vh - 90px); */
+        top: 10px;
+        left: 10px;
+        width: calc(100vw - 20px);
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        /* animation: slideIn 0.5s forwards; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay"></div>  <!--DOCK 栏-->
+    <div class="custom-overlay">
+    </div> <!--菜单栏-->
+  </body>
+  
+</html>
