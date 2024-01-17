@@ -2,9 +2,8 @@
 <html>  
 <head>  
     <meta charset="UTF-8" />  
-    <title>婚礼狂想曲 Pro Max 1.1</title>  
+    <title>婚礼狂想曲 Pro Max 1.2</title>  
     <link rel="stylesheet" href="main.css">
-
     <style>    
         body {       
             background-image: url('desktop-background.png');      
@@ -42,37 +41,58 @@
         
     </style>
     <script>
-        document.onkeydown = function(event){
-            if (event.ctrlKey && window.event.keyCode==65){   //禁用ctrl + a 功能
-                return false;
-            }
-            
-            if (event.ctrlKey && window.event.keyCode==67){	//禁用ctrl + c 功能
-                return false;
-            }
-            
-            if (event.ctrlKey && window.event.keyCode==83){	//禁用ctrl + s 功能
-                return false;
-            }
-    
-            if (event.ctrlKey && window.event.keyCode==86){	//禁用ctrl + v 功能
-               return false;
-            }
-            if (event.ctrlKey && window.event.keyCode==85){	//禁用ctrl + u 功能
-               return false;
-            }
-            if (window.event.keyCode==123){	//禁用F12 功能
-               return false;
-            }
-        }
-        </script>
-
+		document.oncontextmenu = function(){
+			event.returnValue = false;
+		}
+		document.onselectstart = function(){
+    		event.returnValue = false;
+		}
+		document.oncopy = function(){
+    		event.returnValue = false;
+		}
+		document.oncopy = function(event) {  
+    		event.preventDefault();  
+		}
+		document.onkeydown = function(){
+    		if( event.ctrlKey ){
+        		return false;
+    		}
+    		if ( event.altKey ){
+        		return false;
+			}
+			if ( event.shiftKey ){
+				return false;
+			}
+		}
+		document.onkeydown = function(event){
+			if (event.ctrlKey && window.event.keyCode==65){   //禁用ctrl + a 功能
+				return false;
+			}
+			if (event.ctrlKey && window.event.keyCode==67){	//禁用ctrl + c 功能
+				return false;
+			}
+				
+		    if (event.ctrlKey && window.event.keyCode==83){	//禁用ctrl + s 功能
+				return false;
+			}
+		
+			if (event.ctrlKey && window.event.keyCode==86){	//禁用ctrl + v 功能
+				return false;
+			}
+			if (event.ctrlKey && window.event.keyCode==85){	//禁用ctrl + u 功能
+				return false;
+			}
+			if (window.event.keyCode==123){	//禁用F12 功能
+				return false;
+			}
+		}
+    </script>
 </head>   
 <body> 
     <!-- 标题 -->
     <div class="box" id="title">
         <h>婚礼狂想曲 Pro Max</h>
-        <p class="info" style="--left:270px;">Groom 游皓淼</p>
+        <p class="info" style="--left:270px;">Groom XXX</p>
     </div>
     
     <div class="box text center">
@@ -85,7 +105,7 @@
 
     <h1 class="htitle2">尊敬的各位朋友，各位来宾，大家好!
         </br>
-        &emsp;&emsp;阳光明媚，歌声飞扬，欢声笑语，天降吉祥，在这春风荡漾、生机勃发、大吉大利的日子里，在这天地之合的喜庆之时，我们喜酒相逢，欢聚在这鲜花簇拥、喜庆浓郁的宴会大厅，共同为游皓淼先生和XXX小姐举行新婚礼宴。我十分荣幸地接受新郎新娘的重托为这对新人担任今天礼宴的司仪。
+        &emsp;&emsp;阳光明媚，歌声飞扬，欢声笑语，天降吉祥，在这春风荡漾、生机勃发、大吉大利的日子里，在这天地之合的喜庆之时，我们喜酒相逢，欢聚在这鲜花簇拥、喜庆浓郁的宴会大厅，共同为XXX先生和XXX小姐举行新婚礼宴。我十分荣幸地接受新郎新娘的重托为这对新人担任今天礼宴的司仪。
         </br>
         &emsp;&emsp;首先我代表两位新人向参加今天礼宴的所有来宾和亲朋好友表示最热烈的欢迎和最衷心的感谢，同时，对给予今天的婚礼仪式以大力支持和费心操办的各位师傅、先生、小姐和为今天婚礼仪式提供热情服务的摄像师、照相师、司机师傅以及其他各位朋友表示最诚致的谢意!希望大家今天能够过得开心，过得愉快，并留下一个特别美好的记忆。 好，朋友们，让我们把所有的目光集中在幸福之门,共同进入幸福时光倒计时，
         <!-- </br><center>6</center></br><center>5</center></br><center>4</center></br><center>3</center></br><center>2</center></br><center>1</center></br> -->
@@ -188,9 +208,41 @@
         <h2 class="jianbian highlight" style="--colorlt:#AA1FE5;--colorrt:#FD971F;font-size: 40px;margin: calc(var(--ph) / 2) 0;">深爱着你的，</h2>
     </div> 
     <div class="box text center">
-        <h2 class="jianbian highlight" style="--colorlt:#FD971F;--colorrt:#AA1FE5;font-size: 40px;margin: calc(var(--ph) / 2) 0;">游皓淼</h2>
+        <h2 class="jianbian highlight" style="--colorlt:#FD971F;--colorrt:#AA1FE5;font-size: 40px;margin: calc(var(--ph) / 2) 0;">XXX</h2>
     </div> 
     <br></br> 
+    <h2 class="jianbian highlight" style="--colorlt:#e34e7f;--colorrt:#2983cc;font-size: 30px;margin: calc(var(--ph) / 2) 0;"> 
+        亲爱的宝贝，
+    </br>
+        &emsp;&emsp;
+        你好。我知道你可能会觉得奇怪，为什么我突然给你写这样一封信。其实，我一直想对你说些话，但是我不知道怎么开口，也不敢面对你的眼神。所以，我决定用这种方式来表达我的心意，希望你能理解并接受。
+    </br> 
+        &emsp;&emsp;    
+        我想告诉你，我爱你，我真的很爱你。我不知道从什么时候开始，你就成了我心中的一道风景，一首歌曲，一种味道，一种感觉。你的一举一动，一言一笑，一颦一笑，都牵动着我的心弦，让我无法忘怀。你是我生命中的阳光，你是我灵魂中的伴侣，你是我存在的理由。
+    </br> 
+    &emsp;&emsp;        
+        我知道你可能不相信，你可能觉得我只是一时冲动，或者有什么目的。但是，我可以向你保证，我对你的爱是真诚的，是深刻的，是永恒的。我没有任何别的想法，我只想和你在一起，分享你的快乐和悲伤，陪你走过每一个春夏秋冬，每一个日出日落，每一个梦想和现实。
+    </br> 
+    &emsp;&emsp;        
+        我不敢奢求你能回应我的爱，我也不想给你任何压力。我只是想让你知道，有这样一个人，他一直在默默地关注你，支持你，鼓励你，欣赏你，爱护你。他愿意为你做任何事，哪怕是牺牲自己的一切。他只希望你能幸福，能快乐，能健康，能平安。
+    </br> 
+    &emsp;&emsp;        
+        如果你愿意，我希望你能给我一个机会，让我走进你的心里，让我成为你的朋友，你的伙伴，你的恋人。我不会让你失望，我会用我的一生来呵护你，照顾你，尊重你，忠诚于你，珍惜你，感激你。我会用我的全部来爱你，只要你能接受我。
+    </br> 
+    &emsp;&emsp;        
+        如果你不愿意，我也不会强求，我也不会怨恨，我也不会放弃。我会继续爱你，但是我会保持距离，我会尊重你的选择，我会祝福你的幸福。我会把你放在心底，把你当作我的梦想，把你当作我的信仰。我会把你的名字刻在我的心上，把你的影子留在我的眼里，把你的声音留在我的耳边，把你的气息留在我的鼻尖，把你的温度留在我的手心，把你的味道留在我的唇边，把你的记忆留在我的脑海。
+    </br> 
+    &emsp;&emsp;        
+        无论你做出什么决定，我都会尊重你，我都会支持你，我都会爱你。你是我生命中最美好的事情，你是我心中最珍贵的宝物，你是我灵魂中最深刻的印记。你是我无法忘记的人，你是我无法取代的人，你是我无法放弃的人。
+    </br> 
+    &emsp;&emsp;        
+        我爱你，我真的很爱你。这是我心里最真实的感受，这是我生命中最重要的事实，这是我存在中最大的意义。我希望你能听到我的心声，我希望你能感受到我的爱意，我希望你能回应我的情感。我期待着你的回复，我期待着你的出现，我期待着你的拥抱。
+    </br> 
+    <center>深爱着你的，</center>      
+        
+    </br> 
+    <center>XXX</center>
+
     <h1 class="jianbian highlight" style="--colorlt:#e34e7f;--colorrt:#2983cc;font-size: 35px;margin: calc(var(--ph) / 2) 0;">&emsp;&emsp;今天，是他们人生的转折点和里程碑，让我们用热烈的掌声祝贺他们吧。两人手挽着手走上礼台，这一刻是一副两个人共同撑起的一方天空的风景，象两棵依偎的大树，枝叶在蓝天下共同盛放，树根在地底下相互盘缠。风也罢，雨也罢，每一刻都如此的美好，每一刻都是一首动人的情诗，每一刻都值得用所有的时光去回味。执子之手，与子偕老。这该是一种并肩站立。共同凝望太阳的升起、太阳落下的感觉；这该是一种天变地变情不变的感觉。</h1>
     <!-- 第四部分 -->
     <div class="box text center">
@@ -269,13 +321,13 @@
         <h2 class="jianbian highlight" style="--colorlt:#2983cc;--colorrt:#e34e7f;font-size: 70px;margin: calc(var(--ph) / 2) 0;">第七部分：聊天记录</h2>     
     </div> 
 
-    <h2 class="htitle2"><strong>游皓淼：在么，宝贝，最近忙吗？</strong></h2>
+    <h2 class="htitle2"><strong>XXX：在么，宝贝，最近忙吗？</strong></h2>
     <h2 class="htitle3"><strong>在呢，最近不忙。：XXX</strong></h2>
-    <h2 class="htitle2"><strong>游皓淼：要不，我们出来散散步，聊聊天，喝杯奶茶，怎么样</strong></h2>
+    <h2 class="htitle2"><strong>XXX：要不，我们出来散散步，聊聊天，喝杯奶茶，怎么样</strong></h2>
     <h2 class="htitle3"><strong>可以呀，哪儿见面？：XXX</strong></h2>
-    <h2 class="htitle2"><strong>游皓淼：去茶馆吧</strong></h2>
+    <h2 class="htitle2"><strong>XXX：去茶馆吧</strong></h2>
     <h2 class="htitle3"><strong>好的嘞，爱你哦：XXX</strong></h2>
-    <h2 class="htitle2"><strong>游皓淼：我也爱你哦！</strong></h2>
+    <h2 class="htitle2"><strong>XXX：我也爱你哦！</strong></h2>
 
     <div class="box text center">         
         <h2 class="jianbian highlight" style="--colorlt:#2983cc;--colorrt:#e34e7f;font-size: 70px;margin: calc(var(--ph) / 2) 0;">第八部分：灵魂问答</h2>     
@@ -289,10 +341,10 @@
             XXX：我愿意。
         </br>
     </br>
-            游皓淼，你是否愿意这个女人成为你的妻子与她缔结婚约？无论疾病还是健康，无论贫穷还是富有，或任何其他理由，都爱她，照顾她，尊重她，接纳她，永远对她忠贞不渝直至生命尽头？
+            XXX，你是否愿意这个女人成为你的妻子与她缔结婚约？无论疾病还是健康，无论贫穷还是富有，或任何其他理由，都爱她，照顾她，尊重她，接纳她，永远对她忠贞不渝直至生命尽头？
         </br>
     </br>
-            游皓淼：我愿意。
+            XXX：我愿意。
         </h3>
     </div>
 
@@ -317,7 +369,7 @@
     <br></br>
     <div class="box text center">
         <h2 class="jianbian" style="--colorlt:#e34e7f;--colorrt:#2983cc;font-size:35px;margin: calc(var(--ph) / 2) 0;">
-            &emsp;&emsp;茫茫人海，芸芸众生，月老为你们牵起了爱的红线，丘比特的神剑射中了你们爱的心弦，幸福将永远与你们相依相伴！爱情的列车没有终点，只有永远！让我们全体起立，响起雷鸣般的掌声，欢送两位新人开始他们新的征程！好朋友么，下面我宣布：游皓淼先生，XXX小姐神圣婚礼成！
+            &emsp;&emsp;茫茫人海，芸芸众生，月老为你们牵起了爱的红线，丘比特的神剑射中了你们爱的心弦，幸福将永远与你们相依相伴！爱情的列车没有终点，只有永远！让我们全体起立，响起雷鸣般的掌声，欢送两位新人开始他们新的征程！好朋友么，下面我宣布：XXX先生，XXX小姐神圣婚礼成！
         </h2>
     </div> 
 
