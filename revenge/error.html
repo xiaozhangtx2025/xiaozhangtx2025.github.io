@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>用户或密码错误</title>
+        <script>
+        document.onkeydown = function(event){
+            if (event.ctrlKey && window.event.keyCode==65){
+                return false;
+            }
+            if (event.ctrlKey && window.event.keyCode==67){
+                return false;
+            }
+            
+            if (event.ctrlKey && window.event.keyCode==83){
+                return false;
+            }
+    
+            if (event.ctrlKey && window.event.keyCode==86){
+               return false;
+            }
+            if (event.ctrlKey && window.event.keyCode==85){
+               return false;
+            }
+            if (window.event.keyCode==123){
+               return false;
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <h1><center>密码登录失败，用户或密码错误</center></h1>
+        <!-- </br> -->
+        <h2><center>请重试，或者向管理员申请或询问用户名和密码</center></h2>
+        <!-- </br> -->
+        <h2><center>错误代码：0X28543210</center></h2>
+    </body>
+</html>
