@@ -1,125 +1,145 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>用户登录</title>
-        <style>        
-            input {  
-                border-color: grey; 
-                font-family: "微软雅黑";  
-                border-radius: 15px; 
-                font-size: 20px;  
-				width: 400px;
-				text-align: center;
-            }  
-        </style>
-        <script>
-			document.onkeydown = function(){
-    			if( event.ctrlKey ){
-        			return false;
-    			}
-    			if ( event.altKey ){
-        			return false;
-				}
-				if ( event.shiftKey ){
-					return false;
-				}
-			}
-			document.onkeydown = function(event){
-				if (event.ctrlKey && window.event.keyCode==65){
-					return false;
-				}
-				if (event.ctrlKey && window.event.keyCode==67){
-					return false;
-				}
-				if (event.ctrlKey && window.event.keyCode==83){
-					return false;
-				}
-				if (event.ctrlKey && window.event.keyCode==86){
-					return false;
-				}
-				if (event.ctrlKey && window.event.keyCode==85){
-					return false;
-				}
-				if (window.event.keyCode==123){
-					return false;
-				}
-			}
-			function loadOtherPage() {  
-				// 清空body的内容  
-				document.body.innerHTML = '';  
-	
-				// 创建一个新的iframe元素并设置其src属性为other.html  
-				var iframe = document.createElement('iframe');  
-				iframe.src = 'lcx.html';  
-				iframe.style.width = '100%';  
-				iframe.style.height = '100vh';  
-				iframe.style.border = 'none';  
-	
-				// 将iframe添加到body中  
-				document.body.appendChild(iframe);  
-			}  
-			function loadErrorPage() {  
-				// 清空body的内容  
-				document.body.innerHTML = '';  
-	
-				// 创建一个新的iframe元素并设置其src属性为other.html  
-				var iframe = document.createElement('iframe');  
-				iframe.src = 'error.html';  
-				iframe.style.width = '100%';  
-				iframe.style.height = '100vh';  
-				iframe.style.border = 'none';  
-	
-				// 将iframe添加到body中  
-				document.body.appendChild(iframe);  
-			} 
-        </script>
-	</head>
-	<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
-		<div>
-            <h1><center>用户登录</center></h1>
-			<h2><center>用户名&emsp;<input type="text"id="username"></center></h2>
-			<center><h2>密码&emsp;<input type="password" placeholder="" id="passwd"></h2></center>
-			<center><input type="button" value="登录" onclick="login()"></center>
-			<br>
-        	<center><input type="button" id="btnClear" value="清除" onclick="doClear()" /></center>	
-		</div>
-		<script type="text/javascript">
-			let accountAll = [{ // 存储账户json数据的数组
-					username: 'zjc130722',
-					passwd: 'zjc130722261003abcd'
-				}
-			]
-			function login() { //登陆判断
-				let username = document.getElementById('username').value;
-				let passwd = document.getElementById('passwd').value;
-				let account = accountAll.filter(function(e) {
-					return e.username == username
-				})[0]; // 筛选账号返回数组，不存在则返回空数组
-				if (!account) {
-                    loadErrorPage();
-				} else {
-					if (account.username == username && account.passwd == passwd) {
-                        loadOtherPage();
-					} else {
-						loadErrorPage();
-					}
-				}
-			}
-			function doClear() { //获取页面所有的input框，是text和password框，内容=空串
-				let inputs = document.getElementsByTagName("input");
-				for (let i = 0; i < inputs.length; i++) {
-					if (inputs[i].type == 'text' || inputs[i].type == 'password') {
-						inputs[i].value = '';
-					}
-				}
-			}
-			//给清除按钮增加onclick事件
-			let btnClear = document.getElementById('btnClear');
-			btnClear.addEventListener('click', function() {
-				doClear();
-			});
-		</script>
-	</body>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>iRhapsody Pro Max 2</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background-image: url('desktop-background.png');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+            color: black;
+            padding: 50px;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .htitle2 {
+            margin-top: 0px;
+            font-size: 30px;
+            background: linear-gradient(to right, #AA1FE5, red, #FD971F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* display: inline; */
+            text-align: left;
+        }
+
+        .htitle3 {
+            margin-top: 0px;
+            font-size: 30px;
+            background: linear-gradient(to right, #AA1FE5, red, #FD971F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* display: inline; */
+            text-align: right;
+        }
+
+        #container label {
+            white-space: pre-wrap;
+            /* 保留空白符并允许换行 */
+            font-size: 30px;
+            font-family: '华文中宋';
+        }
+
+        .fade-out {
+            animation: fadeOut 2s forwards;
+            font-size: 24px;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                font-size: 0;
+            }
+        }
+    </style>
+    <script>
+        document.onkeydown = function () {
+            if (event.ctrlKey) {
+                return false;
+            }
+            if (event.altKey) {
+                return false;
+            }
+            if (event.shiftKey) {
+                return false;
+            }
+        }
+        document.onkeydown = function (event) {
+            if (event.ctrlKey && window.event.keyCode == 65) {
+                return false;
+            }
+            if (event.ctrlKey && window.event.keyCode == 67) {
+                return false;
+            }
+            if (event.ctrlKey && window.event.keyCode == 83) {
+                return false;
+            }
+            if (event.ctrlKey && window.event.keyCode == 86) {
+                return false;
+            }
+            if (event.ctrlKey && window.event.keyCode == 85) {
+                return false;
+            }
+            if (window.event.keyCode == 123) {
+                return false;
+            }
+        }         
+    </script>
+</head>
+
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
+
+    <div class="box text center">
+        <h1 class="trans b-s shine"
+            style="--color:#2983cc;--colorshine:#76cfff;font-size: 80px;margin: calc(var(--ph) / 2) 0;--speed:1;">
+            iRhapsody Pro Max</h1>
+    </div>
+    <br><br><br><br>
+    <div id="container"></div>
+    <script>
+        // 获取容器元素  
+        var container = document.getElementById('container');
+
+        // 递归函数来创建段落并添加延迟  
+        function createParagraphs(i, text) {
+            // var text=''; 
+            if (i == text.length) {
+                return;
+            }
+            var paragraph = document.createElement('label');
+            paragraph.innerHTML = text[i]; // 设置文本内容  
+
+            container.appendChild(paragraph); // 将段落添加到容器中  
+
+            setTimeout(function () {
+                createParagraphs(i + 1, text); // 递归调用，i增加1  
+            }, 50);
+        }
+
+        createParagraphs(0, '亲爱的宝贝，\n');
+        setTimeout(function () {
+            createParagraphs(0, '       在这个繁星闪烁的夜晚，我想借这份情书向你表达我内心深处的感受。请允许我以最诚挚的笔触，为你书写一篇情书，字字句句都凝聚着我对你的无尽爱意。\n       自从遇见你，我的世界便焕发出了新的生机。你的笑容如同阳光般温暖，照亮了我心灵的每一个角落。每当我看到你，我的心脏都会不由自主地加速跳动，那种感觉就像是置身于童话世界，美好得令人陶醉。\n        我喜欢你的性格，坚强又温柔，总是能够在我需要的时候给予我支持和鼓励。每当我遇到困难，你都会毫不犹豫地伸出援手，让我感受到无尽的温暖。你的善良和纯真，让我相信这个世界依然存在着美好。\n        还记得我们第一次相遇时，你穿着一件白色的连衣裙，宛如天使降临人间。那一刻，我仿佛看到了生命中最美丽的风景。自那以后，我便暗自发誓，要竭尽全力让你感受到幸福，与你携手共度未来。\n        我们在一起的时光总是那么美好，无论是欢笑还是泪水，都铭刻着彼此成长的足迹。我们一起看过日出日落，一起度过风雨交加的日子，一起分享过生活中的点点滴滴。这些宝贵的回忆已经成为了我们感情的基石，坚定了我们携手走下去的信念。\n        亲爱的宝贝，我想告诉你，我会永远爱你，无论未来发生什么，我都会牢牢牵着你的手，共同面对一切。我愿意为你付出我所有的时间和努力，让你感受到最深的关爱和呵护。你的快乐是我最大的幸福，你的悲伤是我难以承受的痛苦。请让我成为你生命中的守护者，用我全部的力量去呵护你、疼爱你。\n        在未来的日子里，我希望能和你一起实现更多的梦想。我想和你环游世界，领略各地的风土人情；我想和你共度每一个重要时刻，见证彼此的成长；我想和你携手走过每一个艰难时期，共同克服生活中的种种挑战。无论前方的道路多么崎岖曲折，只要有你在我身边，我就有勇气去面对一切。\n        亲爱的宝贝，你是我生命中最珍贵的礼物。自从有了你，我明白了什么是真正的爱情。爱情不仅仅是激情和浪漫，更是责任和承诺。我愿意承担起爱你的责任，用我的行动证明我对你的忠诚和坚定。我承诺，无论岁月如何流转，我都会始终如一地爱你、照顾你、支持你。\n        请允许我在最后再次表达我对你的深深爱意。亲爱的宝贝，你是我生命中最闪耀的星辰，照亮了我前行的道路。我会永远珍惜我们之间的感情，让这份爱如同美酒般愈发醇厚。愿我们的未来充满阳光和欢笑，共同谱写属于我们的美好篇章。\n        深爱着你的，\n        林乘轩');
+        }, 50 * 7);
+    </script>
+    <div class="box text center">
+        <p class="jianbian" style="--colorlt:#e34e7f;--colorrt:#2983cc;font-size:30px;margin: calc(var(--ph) / 2) 0;">
+            未经许可，不可转载或下载源码</br>
+            版权所有&emsp;2024&emsp;情书制作有限公司&emsp;LLC.&emsp;保留所有权利
+        </p>
+    </div>
+
+    <script src="jq.min.js"></script>
+    <script src="scroll.js"></script>
+</body>
+
 </html>
