@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ClassMaster Dashboard</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        svg {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            margin: 0;
+            margin-top: 20px;
+            margin-left: 250px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            transform: translateY(0%);
+            background: rgba(0, 0, 0);
+            border-radius: 15px;
+            padding: 10px;
+            z-index: 1009;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #007bff;
+            color: #fff;
+        }
+
+        p, ol {
+            color: white;
+            margin-left: 250px;
+        }
+
+        li {
+            color: white;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .heading-primary {
+            color: white;
+            padding-left: 10px;
+            font-weight: bold;
+            font-size: large;
+            margin-left: 0px;
+        }
+
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            display: none;
+            z-index: 1008;
+            transition: opacity 0.5s ease;
+        }
+
+        #modal-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        #stats-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgb(22, 27, 34);
+            width: 400px;
+            height: 230px;
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1010;
+        }
+
+        #stats-modal.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body style="background-color: black;">
+
+    <div id="modal-overlay"></div>
+
+    <div class="navigation">
+        <div class="nav-item" onclick="toggleStatistics()">STATISTICS</div>
+        <div class="nav-item" onclick="scrollToSection('appendStudent')">APPEND STUDENT</div>
+        <div class="nav-item" onclick="scrollToSection('deleteStudent')">DELETE STUDENT</div>
+        <div class="nav-item" onclick="scrollToSection('modifyStudent')">MODIFY STUDENT</div>
+        <div class="nav-item" onclick="scrollToSection('searchStudent')">SEARCH STUDENT</div>
+        <div class="nav-item" onclick="scrollToSection('displayStudent')">DISPLAY STUDENT</div>
+    </div>
+    <div id="stats-modal">
+        <p class="heading-primary" style="padding-left: 20px;">STATISTICS</p>
+        <div style="float: left; width: 80%;">
+            <p style="color: white; padding-left: 20px; margin-left: 0px;">NUMBER OF STUDENTS</p>
+            <p style="color: white; padding-left: 20px; margin-left: 0px;">NUMBER OF TESTS</p>
+            <p style="color: white; padding-left: 20px; margin-left: 0px;">NUMBER OF SUBJECTS</p>
+            <p style="color: white; padding-left: 20px; margin-left: 0px;">NUMBER OF VISITS</p>
+        </div>
+        <div style="float: right; width: 20%;">
+            <p style="color: white; padding-left: 10px; font-weight: bold; margin-left: 0px;">110</p>
+            <p style="color: white; padding-left: 10px; font-weight: bold; margin-left: 0px;">20</p>
+            <p style="color: white; padding-left: 10px; font-weight: bold; margin-left: 0px;">4</p>
+            <p style="color: white; padding-left: 10px; font-weight: bold; margin-left: 0px;">11596</p>
+        </div>
+    </div>
+    <h1 style="color: white; margin-left: 250px; padding-top: 25px;">Welcome to ClassMaster</h1>
+    <script type="text/javascript">
+        var isModalOpen = false;
+
+        function closeModal() {
+            var modal = document.getElementById("stats-modal");
+            var overlay = document.getElementById("modal-overlay");
+            modal.classList.remove("active");
+            overlay.classList.remove("active");
+            setTimeout(() => {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+            }, 500); // 500ms should match the transition duration
+        }
+
+        function openModal() {
+            var modal = document.getElementById("stats-modal");
+            var overlay = document.getElementById("modal-overlay");
+            overlay.style.display = "block";
+            modal.style.display = "block";
+            setTimeout(() => {
+                overlay.classList.add("active");
+                modal.classList.add("active");
+            }, 10); // Small delay to trigger the transition
+        }
+
+        function toggleStatistics() {
+            if (!isModalOpen) {
+                openModal();
+                isModalOpen = true;
+            } else {
+                closeModal();
+                isModalOpen = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
