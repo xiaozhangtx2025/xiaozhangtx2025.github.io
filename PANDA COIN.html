@@ -1,0 +1,206 @@
+<!-- <!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <title>每日更新图表</title>
+</head>
+<body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%"></div>
+
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        // 初始化图表
+        var dom = document.getElementById('container');
+        var myChart = echarts.init(dom, 'dark', { renderer: 'svg' });
+
+        // 从本地存储加载现有数据
+        let savedData = localStorage.getItem('chartData');
+        let data = savedData ? JSON.parse(savedData) : [];
+
+        // 生成新数据点
+        function generateNewData() {
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+            
+            // 检查今天是否已经生成过数据
+            if (data.some(item => item[0] === dateString)) return;
+
+            // 生成随机数（保留两位小数）
+            const randomValue = (Math.random() * (8.20 - 6.80) + 6.80).toFixed(2);
+            
+            // 添加新数据点（最多保留30天数据）
+            data.push([dateString, parseFloat(randomValue)]);
+            if (data.length > 30) data.shift();
+
+            // 更新本地存储
+            localStorage.setItem('chartData', JSON.stringify(data));
+            
+            return true;
+        }
+
+        // 更新图表配置
+        function updateChart() {
+            const dateList = data.map(item => item[0]);
+            const valueList = data.map(item => item[1]);
+
+            const option = {
+                title: {
+                    left: 'center',
+                    text: '每日随机数据更新'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: dateList
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 6.8,
+                    max: 8.2
+                },
+                series: [{
+                    type: 'line',
+                    showSymbol: true,
+                    data: valueList,
+                    smooth: true,
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: 'rgba(137, 189, 27, 0.3)' },
+                            { offset: 0.8, color: 'rgba(137, 189, 27, 0.1)' },
+                            { offset: 1, color: 'rgba(137, 189, 27, 0)' }
+                        ])
+                    }
+                }]
+            };
+
+            myChart.setOption(option);
+        }
+
+        // 每日自动更新（当日期变化时）
+        function checkDailyUpdate() {
+            const lastUpdate = localStorage.getItem('lastUpdate');
+            const today = new Date().toDateString();
+            
+            if (lastUpdate !== today) {
+                generateNewData();
+                localStorage.setItem('lastUpdate', today);
+                updateChart();
+            }
+        }
+
+        // 初始化执行
+        function init() {
+            // 确保至少有一条数据
+            if (data.length === 0) generateNewData();
+            
+            // 更新图表
+            updateChart();
+            
+            // 设置每日检查（使用定时器模拟，实际应使用Service Worker）
+            setInterval(checkDailyUpdate, 60000); // 每分钟检查一次（演示用）
+        }
+
+        // 执行初始化
+        init();
+
+        // 窗口大小改变时自适应
+        window.addEventListener('resize', myChart.resize);
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, 'dark', {
+      renderer: 'svg',
+      useDirtyRect: false
+    });
+    var app = {};
+
+    // 从本地存储加载数据
+    let savedData = localStorage.getItem('chartData');
+    let data = savedData ? JSON.parse(savedData) : [];
+    let lastUpdate = localStorage.getItem('lastUpdate') || 0;
+
+    function generateNewData() {
+      const now = Date.now();
+      
+      // 确保至少间隔30秒
+      if (now - lastUpdate < 30000) return;
+
+      const newDate = new Date();
+      const dateString = newDate.toISOString().split('T')[0];
+      const randomValue = (Math.random() * (8.50 - 5.50) + 5.50).toFixed(2);
+
+      data.push([dateString, parseFloat(randomValue)]);
+      if (data.length > 30) data.shift();
+
+      localStorage.setItem('chartData', JSON.stringify(data));
+      localStorage.setItem('lastUpdate', now.toString());
+      return true;
+    }
+
+    var option;
+
+    function updateChart() {
+      const dateList = data.map(item => item[0]);
+      const valueList = data.map(item => item[1]);
+
+      option = {
+        visualMap: [{
+          show: false,
+          type: 'continuous',
+          seriesIndex: 0,
+          min: 6.8,
+          max: 8.2
+        }],
+        title: [{
+          left: 'center',
+          text: 'PANDA COIN'
+        }],
+        tooltip: {
+          trigger: 'axis'
+        },
+        xAxis: [{
+          data: dateList
+        }],
+        yAxis: [{}],
+        series: [{
+          type: 'line',
+          showSymbol: false,
+          data: valueList
+        }]
+      };
+
+      myChart.setOption(option);
+    }
+
+    // 初始化执行
+    function init() {
+      if (data.length === 0) generateNewData();
+      updateChart();
+      
+      // 每30秒检查更新
+      setInterval(() => {
+        if (generateNewData()) {
+          updateChart();
+        }
+      }, 2000);
+    }
+
+    init();
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
