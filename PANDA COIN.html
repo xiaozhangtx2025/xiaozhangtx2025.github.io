@@ -135,8 +135,7 @@
     function generateNewData() {
       const now = Date.now();
       
-      // 确保至少间隔30秒
-      if (now - lastUpdate < 30000) return;
+      if (now - lastUpdate < 0) return;
 
       const newDate = new Date();
       const dateString = newDate.toISOString().split('T')[0];
@@ -161,8 +160,8 @@
           show: false,
           type: 'continuous',
           seriesIndex: 0,
-          min: 6.8,
-          max: 8.2
+          min: 5.5,
+          max: 8.5
         }],
         title: [{
           left: 'center',
@@ -190,12 +189,11 @@
       if (data.length === 0) generateNewData();
       updateChart();
       
-      // 每30秒检查更新
       setInterval(() => {
         if (generateNewData()) {
           updateChart();
         }
-      }, 2000);
+      }, 86400000);
     }
 
     init();
