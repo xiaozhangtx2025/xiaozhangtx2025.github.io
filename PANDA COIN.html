@@ -92,6 +92,10 @@
 
         // 初始化执行
         function init() {
+            data = [];
+            localStorage.removeItem('chartData');
+            localStorage.removeItem('lastUpdate');
+            updateChart();
             // 确保至少有一条数据
             if (data.length === 0) generateNewData();
             
