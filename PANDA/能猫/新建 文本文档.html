@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 16 系列 - 全新体验</title>
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 页面主体样式 */
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            background: #f5f5f7;
+            padding: 40px;
+        }
+
+        /* 模块容器 */
+        .iphone-hero {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* 黄金比例分割 */
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* 文本内容区 */
+        .unit-copy-wrapper {
+            padding: 80px 80px 80px 0;
+            align-self: start;
+            min-height: 600px; /* 保持布局稳定性 */
+        }
+
+        .headline {
+            font-size: 4.5rem;
+            color: #1d1d1f;
+            margin-bottom: 0.4em;
+            line-height: 1.1;
+        }
+
+        .subhead {
+            font-size: 1.75rem;
+            color: #6e6e73;
+            margin-bottom: 2.5em;
+            max-width: 500px;
+            line-height: 1.4;
+        }
+
+        /* 按钮样式升级 */
+        .cta-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 200px;
+        }
+
+        .button-primary {
+            background: #0071e3;
+            color: white;
+            box-shadow: 0 3px 8px rgba(0,113,227,0.3);
+        }
+
+        .button-primary:hover {
+            background: #005bb5;
+            transform: translateY(-1px);
+        }
+
+        .button-tertiary {
+            background: transparent;
+            border: 2px solid #0071e3;
+            color: #0071e3;
+        }
+
+        .button-tertiary:hover {
+            background: #f0f9ff;
+            transform: translateY(-1px);
+        }
+
+        /* 图片容器优化 */
+        .unit-image-wrapper {
+            display: flex;
+            align-items: flex-start;
+            padding: 80px 0 80px 80px;
+            position: relative;
+            min-height: 600px;
+        }
+
+        /* 图片定位优化 */
+        .unit-image-wrapper img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            position: absolute;
+            top: 80px;
+            right: 80px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1280px) {
+            .iphone-hero {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .unit-copy-wrapper {
+                padding: 60px;
+                min-height: auto;
+            }
+
+            .unit-image-wrapper {
+                padding: 0 60px 60px;
+                min-height: auto;
+                justify-content: center;
+            }
+
+            .unit-image-wrapper img {
+                position: static;
+                max-width: 80%;
+                margin: 0 auto;
+                box-shadow: none;
+            }
+
+            .headline {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .iphone-hero {
+                border-radius: 20px;
+            }
+
+            .unit-copy-wrapper {
+                padding: 40px;
+            }
+
+            .headline {
+                font-size: 2.8rem;
+            }
+
+            .subhead {
+                font-size: 1.2rem;
+                margin-bottom: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="iphone-hero">
+        <!-- 左侧交互热区 -->
+        <a class="unit-link" href="/iphone/" aria-hidden="true" tabindex="-1"></a>
+
+        <!-- 文本内容区 -->
+        <div class="unit-copy-wrapper">
+            <h2 class="headline">iPhone 16 系列</h2>
+            <p class="subhead">超视网膜XDR显示屏，A17仿生芯片，突破性四摄系统</p>
+            <div class="cta-links">
+                <a class="button button-primary" href="/iphone/">进一步了解</a>
+                <a class="button button-tertiary" href="/cn/shop/goto/buy_iphone">立即选购</a>
+            </div>
+        </div>
+
+        <!-- 图片展示区 -->
+        <div class="unit-image-wrapper">
+            <img src="ESCAPE.png" alt="iPhone 16 系列展示图">
+        </div>
+    </section>
+</body>
+</html>
