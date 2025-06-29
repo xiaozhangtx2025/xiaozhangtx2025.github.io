@@ -1,0 +1,506 @@
+<!-- <!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+  <meta charset="utf-8" />
+  <title>2025.7 能猫币汇率 - 能猫金币 / 能猫银币</title>
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100%;
+      background: #121212;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .custom-select {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 240px;
+      z-index: 9999;
+    }
+
+    .select-display {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 10px 16px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+
+    .select-options {
+      list-style: none;
+      margin: 8px 0 0;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      overflow: hidden;
+      display: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .select-options li {
+      padding: 10px 16px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .select-options li:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main" style="height: 100%;"></div>
+
+  <div class="custom-select">
+    <div class="select-display" id="selectDisplay">请选择数据文件 ▾</div>
+    <ul class="select-options" id="selectOptions">
+      <li data-value="2025 July.txt">2025 July.txt</li>
+      <li data-value="2025 August.txt">2025 August.txt</li>
+      <li data-value="2025 September.txt">2025 September.txt</li>
+    </ul>
+  </div>
+
+  <script>
+    const display = document.getElementById('selectDisplay');
+    const options = document.getElementById('selectOptions');
+
+    display.addEventListener('click', () => {
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    });
+
+    options.addEventListener('click', (e) => {
+      if (e.target.tagName === 'LI') {
+        const value = e.target.dataset.value;
+        display.textContent = `${value} ▾`;
+        options.style.display = 'none';
+
+        fetch(value)
+          .then(res => {
+            if (!res.ok) throw new Error('网络错误');
+            return res.text();
+          })
+          .then(data => {
+            processData(data);
+          })
+          .catch(err => {
+            alert('加载文件失败：' + err.message);
+          });
+      }
+    });
+
+    document.addEventListener('click', e => {
+      if (!document.querySelector('.custom-select').contains(e.target)) {
+        options.style.display = 'none';
+      }
+    });
+
+    const myChart = echarts.init(document.getElementById('main'), 'dark', {
+      renderer: 'svg',
+      useDirtyRect: false
+    });
+
+    let option = {
+      title: {
+        text: '2025.7 能猫币汇率 - 能猫金币 / 能猫银币',
+        textStyle: {
+          fontSize: 24,
+          fontWeight: 'bold'
+        },
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: []
+      },
+      yAxis: {
+        min: 17,
+        max: 22,
+        interval: 0.2,
+        type: 'value',
+        name: '比率值'
+      },
+      series: []
+    };
+
+    function processData(rawData) {
+      const lines = rawData.split('\n');
+      const days = [];
+      const seriesData = {
+        'Nengmao Gold Coin / Silver Coin': []
+      };
+
+      for (let i = 1; i < lines.length; i++) {
+        const parts = lines[i].split(/\s+/).filter(Boolean);
+        if (parts.length < 4) continue;
+
+        days.push(`7.${parts[0]}`);
+        seriesData['Nengmao Gold Coin / Silver Coin'].push(parseFloat(parts[1]));
+      }
+
+      updateChart(days, seriesData);
+    }
+
+    function updateChart(xAxisData, seriesData) {
+      const newSeries = [];
+
+      for (const [key, values] of Object.entries(seriesData)) {
+        newSeries.push({
+          name: key,
+          type: 'line',
+          smooth: true,
+          data: values
+        });
+      }
+
+      myChart.setOption({
+        ...option,
+        xAxis: {
+          ...option.xAxis,
+          data: xAxisData
+        },
+        series: newSeries
+      });
+    }
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="zh" style="height: 100%;">
+<head>
+  <meta charset="utf-8" />
+  <title>能猫币汇率</title>
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100%;
+      background: #121212;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 9999;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 220px;
+      user-select: none;
+    }
+
+    .select-display {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 10px 16px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .select-options {
+      position: absolute;
+      width: 100%;
+      list-style: none;
+      margin: 8px 0 0;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      overflow: hidden;
+      display: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      z-index: 10000;
+    }
+
+    .select-options li {
+      padding: 10px 16px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .select-options li:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main" style="height: 100%;"></div>
+
+  <div class="controls">
+    <div class="custom-select" id="monthSelect"></div>
+    <div class="custom-select" id="pairSelect"></div>
+  </div>
+
+  <script>
+    // 硬编码数据
+    const dataStore = {
+      "2025 July": {
+        days: Array.from({ length: 31 }, (_, i) => i + 1),
+        rates: {
+          "A/B": [
+            19.6020,19.4437,19.4236,19.0763,18.7447,
+            18.7237,18.7198,18.5253,18.2937,18.1160,
+            18.2321,17.8681,18.0140,18.0047,18.0834,
+            18.1390,18.3201,18.4169,18.6904,18.6382,
+            18.6216,18.9392,19.2339,19.1768,19.1513,
+            19.0088,18.7995,18.5959,18.4905,18.5611,
+            18.7651
+          ],
+          "B/C": [
+            10.0349,9.9723,9.9870,9.8916,9.8757,
+            9.8837,9.8311,9.7799,9.7789,9.7591,
+            9.8705,9.8099,9.8565,9.9094,9.9464,
+            9.9218,9.8584,9.9327,9.9735,9.8626,
+            9.8048,9.7175,9.7023,9.6252,9.7517,
+            9.7650,9.6582,9.6080,9.5072,9.5576,
+            9.8423
+          ],
+          "A/C": [
+            196.7043,193.8987,193.9840,188.6956,185.1174,
+            185.0585,184.0369,181.1760,178.8928,176.7949,
+            179.9599,175.2834,177.5553,178.4152,179.8640,
+            179.9708,180.6064,182.9294,186.4082,183.8209,
+            182.5811,184.0411,186.6125,184.5806,186.7578,
+            185.6223,181.5693,178.6702,175.7929,177.3996,
+            184.6917
+          ]
+        }
+      },
+      "2025 August": {
+        days: Array.from({ length: 31 }, (_, i) => i + 1),
+        rates: {
+          "A/B": [
+            19.8704,19.6978,19.4438,19.4296,19.4397,
+            19.2008,19.4608,19.7393,19.9424,19.7795,
+            19.6314,19.6115,19.2364,19.3500,19.3577,
+            19.2189,19.2130,19.0203,19.1639,19.2722,
+            19.1964,18.9973,19.0752,18.8746,18.9108,
+            19.0340,19.3444,19.3393,19.2623,19.4509,
+            19.5758
+          ],
+          "B/C": [
+            10.0295,10.0140,9.9083,10.0111,10.0826,
+            10.0021,9.9373,10.0270,10.1312,10.0793,
+            10.0448,10.0933,10.1844,10.1375,10.1938,
+            10.3087,10.2082,10.2366,10.2949,10.2638,
+            10.2116,10.1737,10.1611,10.1279,10.0954,
+            10.1640,10.1980,10.1827,10.1955,10.1734,
+            10.1692
+          ],
+          "A/C": [
+            199.2903,197.2538,192.6538,194.5118,196.0018,
+            192.0477,193.3867,197.9255,202.0402,199.3637,
+            197.1932,197.9445,195.9118,196.1603,197.3290,
+            198.1232,196.1299,194.7023,197.2907,197.8073,
+            196.0269,193.2719,193.8248,191.1603,190.9120,
+            193.4619,197.2753,196.9253,196.3891,197.8814,
+            199.0711
+          ]
+        }
+      }
+    };
+
+    const pairNames = {
+      "A/B": "能猫金币 / 能猫银币",
+      "B/C": "能猫银币 / 能猫铜币",
+      "A/C": "能猫金币 / 能猫铜币"
+    };
+
+    function createSelect(id, options, onChange) {
+      const container = document.getElementById(id);
+      const display = document.createElement('div');
+      display.className = 'select-display';
+      display.textContent = '请选择 ▾';
+
+      const list = document.createElement('ul');
+      list.className = 'select-options';
+
+      options.forEach(opt => {
+        const li = document.createElement('li');
+        li.dataset.value = opt.value;
+        li.textContent = opt.label;
+        list.appendChild(li);
+      });
+
+      display.addEventListener('click', () => {
+        list.style.display = list.style.display === 'block' ? 'none' : 'block';
+      });
+
+      list.addEventListener('click', e => {
+        if (e.target.tagName === 'LI') {
+          display.textContent = e.target.textContent + ' ▾';
+          list.style.display = 'none';
+          onChange(e.target.dataset.value);
+        }
+      });
+
+      document.addEventListener('click', e => {
+        if (!container.contains(e.target)) {
+          list.style.display = 'none';
+        }
+      });
+
+      container.appendChild(display);
+      container.appendChild(list);
+    }
+
+    const pairs = [
+      { value: 'A/B', label: pairNames['A/B'] },
+      { value: 'B/C', label: pairNames['B/C'] },
+      { value: 'A/C', label: pairNames['A/C'] }
+    ];
+
+    let selectedMonth = null;
+    let selectedPair = null;
+
+    createSelect('pairSelect', pairs, value => {
+      selectedPair = value;
+      if (selectedMonth) {
+        updateChart(selectedMonth, selectedPair);
+      }
+    });
+
+    createSelect('monthSelect', [
+      { value: '2025 July', label: '2025 July' },
+      { value: '2025 August', label: '2025 August' }
+    ], value => {
+      selectedMonth = value;
+      if (selectedPair) {
+        updateChart(selectedMonth, selectedPair);
+      }
+    });
+
+    const myChart = echarts.init(document.getElementById('main'), 'dark', {
+      renderer: 'svg'
+    });
+
+    const baseOption = {
+      title: {
+        text: '能猫币汇率',
+        textStyle: { fontSize: 24, fontWeight: 'bold' },
+        left: 'center'
+      },
+      tooltip: { trigger: 'axis' },
+      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+      toolbox: { feature: { saveAsImage: {} } },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: []
+      },
+      yAxis: {
+        type: 'value',
+        name: '比率值'
+      },
+      series: []
+    };
+
+    function calcAxisSettings(minVal, maxVal) {
+      let digits;
+      if (maxVal >= 50) {
+        digits = 0;
+      } else if (maxVal >= 10) {
+        digits = 1;
+      } else {
+        digits = 2;
+      }
+
+      let margin = (maxVal - minVal) * 0.05 || 0.5;
+      if (margin < 0.1) margin = 0.1;
+
+      const yMin = +(Math.floor((minVal - margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
+      const yMax = +(Math.ceil((maxVal + margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
+      const interval = +(((yMax - yMin) / 5).toFixed(digits));
+
+      return { yMin, yMax, interval, digits };
+    }
+
+    function updateChart(month, pair) {
+      const monthData = dataStore[month];
+      if (!monthData) return;
+
+      const days = monthData.days.map(d => {
+        const m = month.includes('July') ? '7' : '8';
+        return `${m}.${d}`;
+      });
+
+      const values = monthData.rates[pair];
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+
+      const { yMin, yMax, interval, digits } = calcAxisSettings(minVal, maxVal);
+
+      myChart.setOption({
+        ...baseOption,
+        title: {
+          ...baseOption.title,
+          text: `${month} 能猫币汇率 - ${pairNames[pair]}`
+        },
+        xAxis: {
+          ...baseOption.xAxis,
+          data: days
+        },
+        yAxis: {
+          ...baseOption.yAxis,
+          min: yMin,
+          max: yMax,
+          interval: interval,
+          axisLabel: {
+            formatter: value => value.toFixed(digits)
+          }
+        },
+        series: [
+          {
+            name: pairNames[pair],
+            type: 'line',
+            smooth: true,
+            data: values
+          }
+        ]
+      });
+    }
+  </script>
+</body>
+</html>
