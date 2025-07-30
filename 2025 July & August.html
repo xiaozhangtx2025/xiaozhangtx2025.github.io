@@ -1,506 +1,440 @@
-<!-- <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
-<head>
-  <meta charset="utf-8" />
-  <title>2025.7 能猫币汇率 - 能猫金币 / 能猫银币</title>
-  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      height: 100%;
-      background: #121212;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    .custom-select {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 240px;
-      z-index: 9999;
-    }
-
-    .select-display {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px) saturate(180%);
-      -webkit-backdrop-filter: blur(10px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      padding: 10px 16px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      user-select: none;
-    }
-
-    .select-options {
-      list-style: none;
-      margin: 8px 0 0;
-      padding: 0;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      overflow: hidden;
-      display: none;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-
-    .select-options li {
-      padding: 10px 16px;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .select-options li:hover {
-      background: rgba(255,255,255,0.3);
-    }
-  </style>
-</head>
-
-<body>
-  <div id="main" style="height: 100%;"></div>
-
-  <div class="custom-select">
-    <div class="select-display" id="selectDisplay">请选择数据文件 ▾</div>
-    <ul class="select-options" id="selectOptions">
-      <li data-value="2025 July.txt">2025 July.txt</li>
-      <li data-value="2025 August.txt">2025 August.txt</li>
-      <li data-value="2025 September.txt">2025 September.txt</li>
-    </ul>
-  </div>
-
-  <script>
-    const display = document.getElementById('selectDisplay');
-    const options = document.getElementById('selectOptions');
-
-    display.addEventListener('click', () => {
-      options.style.display = options.style.display === 'block' ? 'none' : 'block';
-    });
-
-    options.addEventListener('click', (e) => {
-      if (e.target.tagName === 'LI') {
-        const value = e.target.dataset.value;
-        display.textContent = `${value} ▾`;
-        options.style.display = 'none';
-
-        fetch(value)
-          .then(res => {
-            if (!res.ok) throw new Error('网络错误');
-            return res.text();
-          })
-          .then(data => {
-            processData(data);
-          })
-          .catch(err => {
-            alert('加载文件失败：' + err.message);
-          });
-      }
-    });
-
-    document.addEventListener('click', e => {
-      if (!document.querySelector('.custom-select').contains(e.target)) {
-        options.style.display = 'none';
-      }
-    });
-
-    const myChart = echarts.init(document.getElementById('main'), 'dark', {
-      renderer: 'svg',
-      useDirtyRect: false
-    });
-
-    let option = {
-      title: {
-        text: '2025.7 能猫币汇率 - 能猫金币 / 能猫银币',
-        textStyle: {
-          fontSize: 24,
-          fontWeight: 'bold'
-        },
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: []
-      },
-      yAxis: {
-        min: 17,
-        max: 22,
-        interval: 0.2,
-        type: 'value',
-        name: '比率值'
-      },
-      series: []
-    };
-
-    function processData(rawData) {
-      const lines = rawData.split('\n');
-      const days = [];
-      const seriesData = {
-        'Nengmao Gold Coin / Silver Coin': []
-      };
-
-      for (let i = 1; i < lines.length; i++) {
-        const parts = lines[i].split(/\s+/).filter(Boolean);
-        if (parts.length < 4) continue;
-
-        days.push(`7.${parts[0]}`);
-        seriesData['Nengmao Gold Coin / Silver Coin'].push(parseFloat(parts[1]));
-      }
-
-      updateChart(days, seriesData);
-    }
-
-    function updateChart(xAxisData, seriesData) {
-      const newSeries = [];
-
-      for (const [key, values] of Object.entries(seriesData)) {
-        newSeries.push({
-          name: key,
-          type: 'line',
-          smooth: true,
-          data: values
-        });
-      }
-
-      myChart.setOption({
-        ...option,
-        xAxis: {
-          ...option.xAxis,
-          data: xAxisData
-        },
-        series: newSeries
-      });
-    }
-  </script>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="zh" style="height: 100%;">
+
 <head>
-  <meta charset="utf-8" />
-  <title>能猫币汇率</title>
-  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      height: 100%;
-      background: #121212;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+	<meta charset="utf-8" />
+	<title>能猫币汇率</title>
+	<script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+	<style>
+		body {
+			margin: 0;
+			height: 100%;
+			background: linear-gradient(135deg, #e0e5ec, #ffffff);
+			color: #000;
+			font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+		}
 
-    .controls {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 9999;
-    }
+		.controls {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			z-index: 9999;
+		}
 
-    .custom-select {
-      position: relative;
-      width: 220px;
-      user-select: none;
-    }
+		.custom-select {
+			position: relative;
+			width: 220px;
+			user-select: none;
+		}
 
-    .select-display {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      padding: 10px 16px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
+		.select-display {
+			background: rgba(255, 255, 255, 0.3);
+			backdrop-filter: blur(10px) saturate(150%);
+			-webkit-backdrop-filter: blur(10px) saturate(150%);
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			border-radius: 20px;
+			padding: 10px 16px;
+			color: #000;
+			cursor: pointer;
+			font-size: 16px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
 
-    .select-options {
-      position: absolute;
-      width: 100%;
-      list-style: none;
-      margin: 8px 0 0;
-      padding: 0;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      overflow: hidden;
-      display: none;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      z-index: 10000;
-    }
+		.select-options {
+			position: absolute;
+			width: 100%;
+			list-style: none;
+			margin: 8px 0 0;
+			padding: 0;
+			background: rgba(255, 255, 255, 0.3);
+			backdrop-filter: blur(10px) saturate(150%);
+			-webkit-backdrop-filter: blur(10px) saturate(150%);
+			border-radius: 20px;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			display: none;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+			z-index: 10000;
+		}
 
-    .select-options li {
-      padding: 10px 16px;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-    }
+		.select-options li {
+			padding: 10px 16px;
+			color: #000;
+			font-size: 16px;
+			cursor: pointer;
+		}
 
-    .select-options li:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-  </style>
+		.select-options li:hover {
+			background: rgba(0, 0, 0, 0.1);
+		}
+
+		#main {
+			width: calc(100% - 40px);
+			height: calc(100% - 40px);
+			margin: 20px;
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(10px) saturate(150%);
+			-webkit-backdrop-filter: blur(10px) saturate(150%);
+			border-radius: 12px;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		}
+	</style>
 </head>
 
 <body>
-  <div id="main" style="height: 100%;"></div>
+	<div id="main"></div>
 
-  <div class="controls">
-    <div class="custom-select" id="monthSelect"></div>
-    <div class="custom-select" id="pairSelect"></div>
-  </div>
+	<div class="controls">
+		<div class="custom-select" id="monthSelect"></div>
+		<div class="custom-select" id="pairSelect"></div>
+	</div>
 
-  <script>
-    // 硬编码数据
-    const dataStore = {
-      "2025 July": {
-        days: Array.from({ length: 31 }, (_, i) => i + 1),
-        rates: {
-          "A/B": [
-            19.6020,19.4437,19.4236,19.0763,18.7447,
-            18.7237,18.7198,18.5253,18.2937,18.1160,
-            18.2321,17.8681,18.0140,18.0047,18.0834,
-            18.1390,18.3201,18.4169,18.6904,18.6382,
-            18.6216,18.9392,19.2339,19.1768,19.1513,
-            19.0088,18.7995,18.5959,18.4905,18.5611,
-            18.7651
-          ],
-          "B/C": [
-            10.0349,9.9723,9.9870,9.8916,9.8757,
-            9.8837,9.8311,9.7799,9.7789,9.7591,
-            9.8705,9.8099,9.8565,9.9094,9.9464,
-            9.9218,9.8584,9.9327,9.9735,9.8626,
-            9.8048,9.7175,9.7023,9.6252,9.7517,
-            9.7650,9.6582,9.6080,9.5072,9.5576,
-            9.8423
-          ],
-          "A/C": [
-            196.7043,193.8987,193.9840,188.6956,185.1174,
-            185.0585,184.0369,181.1760,178.8928,176.7949,
-            179.9599,175.2834,177.5553,178.4152,179.8640,
-            179.9708,180.6064,182.9294,186.4082,183.8209,
-            182.5811,184.0411,186.6125,184.5806,186.7578,
-            185.6223,181.5693,178.6702,175.7929,177.3996,
-            184.6917
-          ]
-        }
-      },
-      "2025 August": {
-        days: Array.from({ length: 31 }, (_, i) => i + 1),
-        rates: {
-          "A/B": [
-            19.8704,19.6978,19.4438,19.4296,19.4397,
-            19.2008,19.4608,19.7393,19.9424,19.7795,
-            19.6314,19.6115,19.2364,19.3500,19.3577,
-            19.2189,19.2130,19.0203,19.1639,19.2722,
-            19.1964,18.9973,19.0752,18.8746,18.9108,
-            19.0340,19.3444,19.3393,19.2623,19.4509,
-            19.5758
-          ],
-          "B/C": [
-            10.0295,10.0140,9.9083,10.0111,10.0826,
-            10.0021,9.9373,10.0270,10.1312,10.0793,
-            10.0448,10.0933,10.1844,10.1375,10.1938,
-            10.3087,10.2082,10.2366,10.2949,10.2638,
-            10.2116,10.1737,10.1611,10.1279,10.0954,
-            10.1640,10.1980,10.1827,10.1955,10.1734,
-            10.1692
-          ],
-          "A/C": [
-            199.2903,197.2538,192.6538,194.5118,196.0018,
-            192.0477,193.3867,197.9255,202.0402,199.3637,
-            197.1932,197.9445,195.9118,196.1603,197.3290,
-            198.1232,196.1299,194.7023,197.2907,197.8073,
-            196.0269,193.2719,193.8248,191.1603,190.9120,
-            193.4619,197.2753,196.9253,196.3891,197.8814,
-            199.0711
-          ]
-        }
-      }
-    };
+	<script>
+		// 硬编码数据
+		const dataStore = {
+			"2025 July": {
+				days: Array.from({ length: 31 }, (_, i) => i + 1),
+				rates: {
+					"A/B": [
+						19.6020, 19.4437, 19.4236, 19.0763, 18.7447,
+						18.7237, 18.7198, 18.5253, 18.2937, 18.1160,
+						18.2321, 17.8681, 18.0140, 18.0047, 18.0834,
+						18.1390, 18.3201, 18.4169, 18.6904, 18.6382,
+						18.6216, 18.9392, 19.2339, 19.1768, 19.1513,
+						19.0088, 18.7995, 18.5959, 18.4905, 18.5611,
+						18.7651
+					],
+					"B/C": [
+						10.0349, 9.9723, 9.9870, 9.8916, 9.8757,
+						9.8837, 9.8311, 9.7799, 9.7789, 9.7591,
+						9.8705, 9.8099, 9.8565, 9.9094, 9.9464,
+						9.9218, 9.8584, 9.9327, 9.9735, 9.8626,
+						9.8048, 9.7175, 9.7023, 9.6252, 9.7517,
+						9.7650, 9.6582, 9.6080, 9.5072, 9.5576,
+						9.8423
+					],
+					"A/C": [
+						196.7043, 193.8987, 193.9840, 188.6956, 185.1174,
+						185.0585, 184.0369, 181.1760, 178.8928, 176.7949,
+						179.9599, 175.2834, 177.5553, 178.4152, 179.8640,
+						179.9708, 180.6064, 182.9294, 186.4082, 183.8209,
+						182.5811, 184.0411, 186.6125, 184.5806, 186.7578,
+						185.6223, 181.5693, 178.6702, 175.7929, 177.3996,
+						184.6917
+					]
+				}
+			},
+			"2025 August": {
+				days: Array.from({ length: 31 }, (_, i) => i + 1),
+				rates: {
+					"A/B": [
+						19.8704, 19.6978, 19.4438, 19.4296, 19.4397,
+						19.2008, 19.4608, 19.7393, 19.9424, 19.7795,
+						19.6314, 19.6115, 19.2364, 19.3500, 19.3577,
+						19.2189, 19.2130, 19.0203, 19.1639, 19.2722,
+						19.1964, 18.9973, 19.0752, 18.8746, 18.9108,
+						19.0340, 19.3444, 19.3393, 19.2623, 19.4509,
+						19.5758
+					],
+					"B/C": [
+						10.0295, 10.0140, 9.9083, 10.0111, 10.0826,
+						10.0021, 9.9373, 10.0270, 10.1312, 10.0793,
+						10.0448, 10.0933, 10.1844, 10.1375, 10.1938,
+						10.3087, 10.2082, 10.2366, 10.2949, 10.2638,
+						10.2116, 10.1737, 10.1611, 10.1279, 10.0954,
+						10.1640, 10.1980, 10.1827, 10.1955, 10.1734,
+						10.1692
+					],
+					"A/C": [
+						199.2903, 197.2538, 192.6538, 194.5118, 196.0018,
+						192.0477, 193.3867, 197.9255, 202.0402, 199.3637,
+						197.1932, 197.9445, 195.9118, 196.1603, 197.3290,
+						198.1232, 196.1299, 194.7023, 197.2907, 197.8073,
+						196.0269, 193.2719, 193.8248, 191.1603, 190.9120,
+						193.4619, 197.2753, 196.9253, 196.3891, 197.8814,
+						199.0711
+					]
+				}
+			},
+			"2025 September": {
+				"days": Array.from({ length: 30 }, (_, i) => i + 1),
+				"rates": {
+					"A/B": [
+						19.7751, 20.0023, 20.1281, 20.5101, 20.7430, 20.7389, 20.6156, 20.7200, 20.9357, 20.9143,
+						20.9400, 20.8582, 20.8096, 21.0740, 21.0858, 21.3694, 21.1114, 20.7524, 20.8155, 20.7828,
+						20.9141, 20.8498, 20.7084, 20.8060, 20.9912, 21.3316, 21.5018, 21.6632, 21.6722, 21.5905
+					],
+					"B/C": [
+						10.0953, 9.9985, 9.8746, 9.8002, 9.7840, 9.7887, 9.8119, 9.8061, 9.7470, 9.8343,
+						9.8764, 9.7766, 9.8021, 9.8177, 9.8165, 9.8224, 9.8023, 9.8967, 9.8703, 9.9038,
+						9.8484, 9.9045, 9.9606, 9.8928, 9.7833, 9.7689, 9.6608, 9.5923, 9.5626, 9.5831
+					],
+					"A/C": [
+						199.6353, 199.9925, 198.7563, 201.0028, 202.9486, 203.0066, 202.2771, 203.1827, 204.0612, 205.6786,
+						206.8114, 203.9230, 203.9773, 206.8980, 206.9895, 209.8985, 206.9397, 205.3807, 205.4552, 205.8293,
+						205.9695, 206.5072, 206.2686, 205.8297, 205.3635, 208.3873, 207.7247, 207.7996, 207.2434, 206.9047
+					]
+				}
+			},
+			"2025 October": {
+				"days": Array.from({ length: 31 }, (_, i) => i + 1),
+				"rates": {
+					"A/B": [
+						19.9542, 20.1659, 20.4543, 20.6426, 20.6929, 20.5978, 20.8326, 20.6610, 20.7398, 20.4893,
+						20.6476, 20.5771, 20.4641, 20.7196, 20.4645, 20.4445, 20.3981, 20.4952, 20.6717, 20.4791,
+						20.3803, 20.6786, 20.3663, 20.1951, 20.1019, 20.2130, 20.4837, 20.5680, 20.7637, 20.7319, 20.5735
+					],
+					"B/C": [
+						9.9413, 10.0004, 9.9998, 10.0935, 9.9842, 10.0142, 10.1168, 10.0382, 9.9771, 9.9962,
+						9.9943, 9.8748, 9.8972, 9.8462, 9.8537, 9.7454, 9.7926, 9.8327, 9.7792, 9.7664,
+						9.7769, 9.6637, 9.5815, 9.5739, 9.5112, 9.5000, 9.5147, 9.5000, 9.5000, 9.5464, 9.5340
+					],
+					"A/C": [
+						198.3696, 201.6667, 204.5391, 208.3553, 206.6024, 206.2710, 210.7600, 207.3995, 206.9236, 204.8156,
+						206.3588, 203.1947, 202.5377, 204.0083, 201.6521, 199.2402, 199.7505, 201.5233, 202.1530, 200.0070,
+						199.2573, 199.8315, 195.1384, 193.3451, 191.1932, 192.0237, 194.8969, 195.3964, 197.2556, 197.9145, 196.1471
+					]
+				}
+			},
+			"2025 November": {
+				"days": Array.from({ length: 30 }, (_, i) => i + 1),
+				"rates": {
+					"A/B": [
+						19.8428, 20.0628, 20.1152, 19.8840, 19.5989, 19.3232, 19.1323, 19.2882, 19.2932, 19.2892,
+						19.2776, 19.4000, 19.3644, 19.6468, 19.7086, 19.9192, 19.8354, 19.7326, 19.6120, 19.6315,
+						19.6792, 19.9428, 20.2273, 20.3287, 20.5901, 20.5919, 20.4382, 20.4478, 20.4092, 20.3078
+					],
+					"B/C": [
+						9.9672, 10.0199, 9.9687, 9.9296, 9.9041, 9.8965, 9.9661, 9.9939, 10.0164, 9.9516,
+						9.8674, 9.9593, 9.9969, 10.0625, 10.0071, 10.0911, 10.1200, 10.1195, 9.9752, 10.0581,
+						10.0689, 10.0326, 10.1639, 10.0606, 10.0774, 10.0705, 10.1074, 10.1680, 10.1333, 10.1703
+					],
+					"A/C": [
+						197.7770, 201.0277, 200.5216, 197.4392, 194.1100, 191.2327, 190.6752, 192.7641, 193.2497, 191.9580,
+						190.2194, 193.2109, 193.5833, 197.6953, 197.2253, 201.0060, 200.7347, 199.6837, 195.6335, 197.4562,
+						198.1482, 200.0786, 205.5878, 204.5178, 207.4949, 207.3713, 206.5775, 207.9135, 206.8125, 206.5360
+					]
+				}
+			},
+			"2025 December": {
+				"days": Array.from({ length: 31 }, (_, i) => i + 1),
+				"rates": {
+					"A/B": [
+						19.8598, 19.8478, 19.9151, 19.9885, 20.0288, 20.1520, 20.1882, 20.1683, 20.2473, 20.4652,
+						20.2052, 19.9882, 20.2054, 20.2352, 20.2492, 20.5063, 20.7913, 20.9081, 20.8298, 20.8364,
+						20.8395, 20.7987, 20.8476, 20.6897, 20.8031, 21.0499, 21.3565, 21.4234, 21.3453, 21.4661, 21.6248
+					],
+					"B/C": [
+						9.9645, 9.9979, 10.0225, 10.0785, 10.1028, 10.1129, 10.1281, 10.1310, 10.0686, 10.0645,
+						9.9022, 9.9831, 9.9121, 9.9284, 9.7925, 9.8054, 9.7948, 9.8643, 9.7892, 9.9049,
+						9.8721, 9.8205, 9.7018, 9.7590, 9.6826, 9.6865, 9.6908, 9.5471, 9.5804, 9.5590, 9.5792
+					],
+					"A/C": [
+						197.8924, 198.4366, 199.6000, 201.4533, 202.3464, 203.7963, 204.4673, 204.3247, 203.8623, 205.9708,
+						200.0763, 199.5438, 200.2786, 200.9036, 198.2895, 201.0724, 203.6469, 206.2430, 203.9082, 206.3830,
+						205.7302, 204.2535, 202.2598, 201.9113, 201.4278, 203.9004, 206.9614, 204.5310, 204.4966, 205.1955, 207.1489
+					]
+				}
+			}
+		};
 
-    const pairNames = {
-      "A/B": "能猫金币 / 能猫银币",
-      "B/C": "能猫银币 / 能猫铜币",
-      "A/C": "能猫金币 / 能猫铜币"
-    };
+		const pairNames = {
+			"A/B": "能猫金币 / 能猫银币",
+			"B/C": "能猫银币 / 能猫铜币",
+			"A/C": "能猫金币 / 能猫铜币"
+		};
 
-    function createSelect(id, options, onChange) {
-      const container = document.getElementById(id);
-      const display = document.createElement('div');
-      display.className = 'select-display';
-      display.textContent = '请选择 ▾';
+		function createSelect(id, options, onChange) {
+			const container = document.getElementById(id);
+			const display = document.createElement('div');
+			display.className = 'select-display';
+			display.textContent = '请选择 ▾';
 
-      const list = document.createElement('ul');
-      list.className = 'select-options';
+			const list = document.createElement('ul');
+			list.className = 'select-options';
 
-      options.forEach(opt => {
-        const li = document.createElement('li');
-        li.dataset.value = opt.value;
-        li.textContent = opt.label;
-        list.appendChild(li);
-      });
+			options.forEach(opt => {
+				const li = document.createElement('li');
+				li.dataset.value = opt.value;
+				li.textContent = opt.label;
+				list.appendChild(li);
+			});
 
-      display.addEventListener('click', () => {
-        list.style.display = list.style.display === 'block' ? 'none' : 'block';
-      });
+			display.addEventListener('click', () => {
+				list.style.display = list.style.display === 'block' ? 'none' : 'block';
+			});
 
-      list.addEventListener('click', e => {
-        if (e.target.tagName === 'LI') {
-          display.textContent = e.target.textContent + ' ▾';
-          list.style.display = 'none';
-          onChange(e.target.dataset.value);
-        }
-      });
+			list.addEventListener('click', e => {
+				if (e.target.tagName === 'LI') {
+					display.textContent = e.target.textContent + ' ▾';
+					list.style.display = 'none';
+					onChange(e.target.dataset.value);
+				}
+			});
 
-      document.addEventListener('click', e => {
-        if (!container.contains(e.target)) {
-          list.style.display = 'none';
-        }
-      });
+			document.addEventListener('click', e => {
+				if (!container.contains(e.target)) {
+					list.style.display = 'none';
+				}
+			});
 
-      container.appendChild(display);
-      container.appendChild(list);
-    }
+			container.appendChild(display);
+			container.appendChild(list);
+		}
 
-    const pairs = [
-      { value: 'A/B', label: pairNames['A/B'] },
-      { value: 'B/C', label: pairNames['B/C'] },
-      { value: 'A/C', label: pairNames['A/C'] }
-    ];
+		const pairs = [
+			{ value: 'A/B', label: pairNames['A/B'] },
+			{ value: 'B/C', label: pairNames['B/C'] },
+			{ value: 'A/C', label: pairNames['A/C'] }
+		];
 
-    let selectedMonth = null;
-    let selectedPair = null;
+		let selectedMonth = null;
+		let selectedPair = null;
 
-    createSelect('pairSelect', pairs, value => {
-      selectedPair = value;
-      if (selectedMonth) {
-        updateChart(selectedMonth, selectedPair);
-      }
-    });
+		createSelect('pairSelect', pairs, value => {
+			selectedPair = value;
+			if (selectedMonth) {
+				updateChart(selectedMonth, selectedPair);
+			}
+		});
 
-    createSelect('monthSelect', [
-      { value: '2025 July', label: '2025 July' },
-      { value: '2025 August', label: '2025 August' }
-    ], value => {
-      selectedMonth = value;
-      if (selectedPair) {
-        updateChart(selectedMonth, selectedPair);
-      }
-    });
+		createSelect('monthSelect', [
+			{ value: '2025 July', label: '2025 July' },
+			{ value: '2025 August', label: '2025 August' },
+			{ value: '2025 September', label: '2025 September' },
+			{ value: '2025 October', label: '2025 October' },
+			{ value: '2025 November', label: '2025 November' },
+			{ value: '2025 December', label: '2025 December' }
+		], value => {
+			selectedMonth = value;
+			if (selectedPair) {
+				updateChart(selectedMonth, selectedPair);
+			}
+		});
 
-    const myChart = echarts.init(document.getElementById('main'), 'dark', {
-      renderer: 'svg'
-    });
 
-    const baseOption = {
-      title: {
-        text: '能猫币汇率',
-        textStyle: { fontSize: 24, fontWeight: 'bold' },
-        left: 'center'
-      },
-      tooltip: { trigger: 'axis' },
-      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-      toolbox: { feature: { saveAsImage: {} } },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: []
-      },
-      yAxis: {
-        type: 'value',
-        name: '比率值'
-      },
-      series: []
-    };
+		const myChart = echarts.init(document.getElementById('main'), null, {
+			renderer: 'svg'
+		});
 
-    function calcAxisSettings(minVal, maxVal) {
-      let digits;
-      if (maxVal >= 50) {
-        digits = 0;
-      } else if (maxVal >= 10) {
-        digits = 1;
-      } else {
-        digits = 2;
-      }
+		const baseOption = {
+			title: {
+				text: '能猫币汇率',
+				textStyle: { fontSize: 24, fontWeight: 'bold', color: '#000' },
+				left: 'center'
+			},
+			tooltip: { trigger: 'axis', borderRadius: 15 },
+			grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+			toolbox: { feature: { saveAsImage: {} } },
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: [],
+				axisLine: { lineStyle: { color: '#ccc' } },
+				axisLabel: { color: '#666' }
+			},
+			yAxis: {
+				type: 'value',
+				name: '比率值',
+				nameTextStyle: { color: '#333' },
+				axisLine: { lineStyle: { color: '#ccc' } },
+				axisLabel: { color: '#666' }
+			},
+			series: []
+		};
 
-      let margin = (maxVal - minVal) * 0.05 || 0.5;
-      if (margin < 0.1) margin = 0.1;
+		function calcAxisSettings(minVal, maxVal) {
+			let digits;
+			if (maxVal >= 50) {
+				digits = 0;
+			} else if (maxVal >= 10) {
+				digits = 1;
+			} else {
+				digits = 2;
+			}
 
-      const yMin = +(Math.floor((minVal - margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
-      const yMax = +(Math.ceil((maxVal + margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
-      const interval = +(((yMax - yMin) / 5).toFixed(digits));
+			let margin = (maxVal - minVal) * 0.05 || 0.5;
+			if (margin < 0.1) margin = 0.1;
 
-      return { yMin, yMax, interval, digits };
-    }
+			const yMin = +(Math.floor((minVal - margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
+			const yMax = +(Math.ceil((maxVal + margin) * Math.pow(10, digits)) / Math.pow(10, digits)).toFixed(digits);
+			const interval = +(((yMax - yMin) / 5).toFixed(digits));
 
-    function updateChart(month, pair) {
-      const monthData = dataStore[month];
-      if (!monthData) return;
+			return { yMin, yMax, interval, digits };
+		}
 
-      const days = monthData.days.map(d => {
-        const m = month.includes('July') ? '7' : '8';
-        return `${m}.${d}`;
-      });
+		function updateChart(month, pair) {
+			const monthData = dataStore[month];
+			if (!monthData) return;
 
-      const values = monthData.rates[pair];
-      const minVal = Math.min(...values);
-      const maxVal = Math.max(...values);
+			const monthNumberMap = {
+				"2025 July": 7,
+				"2025 August": 8,
+				"2025 September": 9,
+				"2025 October": 10,
+				"2025 November": 11,
+				"2025 December": 12
+			};
 
-      const { yMin, yMax, interval, digits } = calcAxisSettings(minVal, maxVal);
+			const days = monthData.days.map(d => {
+				const m = monthNumberMap[month];
+				return `${m}.${d}`;
+			});
 
-      myChart.setOption({
-        ...baseOption,
-        title: {
-          ...baseOption.title,
-          text: `${month} 能猫币汇率 - ${pairNames[pair]}`
-        },
-        xAxis: {
-          ...baseOption.xAxis,
-          data: days
-        },
-        yAxis: {
-          ...baseOption.yAxis,
-          min: yMin,
-          max: yMax,
-          interval: interval,
-          axisLabel: {
-            formatter: value => value.toFixed(digits)
-          }
-        },
-        series: [
-          {
-            name: pairNames[pair],
-            type: 'line',
-            smooth: true,
-            data: values
-          }
-        ]
-      });
-    }
-  </script>
+
+			const values = monthData.rates[pair];
+			const minVal = Math.min(...values);
+			const maxVal = Math.max(...values);
+
+			const { yMin, yMax, interval, digits } = calcAxisSettings(minVal, maxVal);
+
+			myChart.setOption({
+				...baseOption,
+				title: {
+					...baseOption.title,
+					text: `${month} 能猫币汇率 - ${pairNames[pair]}`
+				},
+				xAxis: {
+					...baseOption.xAxis,
+					data: days
+				},
+				yAxis: {
+					...baseOption.yAxis,
+					min: yMin,
+					max: yMax,
+					interval: interval,
+					axisLabel: {
+						formatter: value => value.toFixed(digits)
+					}
+				},
+				series: [
+					{
+						name: pairNames[pair],
+						type: 'line',
+						smooth: true,
+						data: values,
+						symbol: 'circle',
+						symbolSize: 6,
+						itemStyle: {
+							color: '#3E71F7',
+							shadowColor: 'rgba(62, 113, 247, 0.3)',
+							shadowBlur: 10
+						},
+						lineStyle: { width: 3 },
+						areaStyle: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+								{ offset: 0, color: 'rgba(62, 113, 247, 0.2)' },
+								{ offset: 1, color: 'rgba(62, 113, 247, 0)' }
+							])
+						}
+					}
+				]
+			});
+		}
+	</script>
 </body>
+
 </html>
