@@ -2,16 +2,14 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PandaTeam</title>
     <style>
         :root {
             --primary-color: 230, 247, 255;
-            /* 基础浅蓝色 */
             --secondary-color: 255, 182, 193;
-            /* 基础浅粉色 */
-            --blur-strength: 25px;
+            --blur-strength: 30px;
         }
 
         * {
@@ -27,9 +25,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg,
-                    rgba(var(--primary-color), 0.85) 0%,
-                    rgba(var(--secondary-color), 0.75) 100%);
+            background: linear-gradient(145deg,
+                    rgba(var(--primary-color), 0.7),
+                    rgba(var(--secondary-color), 0.6));
             backdrop-filter: blur(var(--blur-strength));
             -webkit-backdrop-filter: blur(var(--blur-strength));
             z-index: -1;
@@ -38,43 +36,49 @@
 
         body {
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            /* 以下为新增的字体设置（保持排版一致性） */
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            background-color: transparent;
         }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
 
         .container {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            /* 保持纯白背景 */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 20px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
-            overflow: hidden;
-            min-width: 700px;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 24px;
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.3),
+                0 8px 32px rgba(31, 38, 135, 0.15);
+            padding: 20px;
+            transition: all 0.4s ease;
         }
 
-        /* 保持原有悬停交互效果 */
         .container:hover {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            transform: translateY(-3px);
+            transform: scale(1.015);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12),
+                0 0 20px rgba(0, 149, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.5);
         }
+
 
         .image-container {
             flex: 1 1 400px;
             min-width: 300px;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
         }
 
@@ -85,7 +89,6 @@
             display: block;
         }
 
-        /* 严格保持原有文字排版样式 */
         .text-container {
             flex: 1 1 300px;
             min-width: 250px;
@@ -93,24 +96,43 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            /* 保持原有文字样式 */
-            color: #4d6276;
+            color: #3b4a5a;
         }
 
         .text-container h1 {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #333;
+            color: #111;
+            font-weight: 600;
         }
 
         .text-container p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            color: #555;
             line-height: 1.6;
-            color: #666;
-            margin-bottom: 1rem;
         }
 
-        /* 响应式优化（保持原有断点） */
+        .nav-item {
+            width: fit-content;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 14px;
+            color: #007aff;
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 122, 255, 0.15);
+            color: #0050c8;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 15px;
@@ -118,7 +140,7 @@
 
             .container {
                 flex-direction: column;
-                padding: 15px;
+                padding: 16px;
             }
 
             .text-container h1 {
@@ -126,7 +148,6 @@
             }
         }
 
-        /* 兼容性降级（保持文字样式） */
         @supports not (backdrop-filter: blur(1px)) {
             body::before {
                 background: #e6f7ff;
@@ -134,107 +155,77 @@
 
             .container {
                 background: white;
-                border: 1px solid #e0e0e0;
+                border: 1px solid #ccc;
+                box-shadow: none;
             }
 
-            /* 降级模式文字样式保持 */
             .text-container {
                 color: #333;
             }
-
-            .text-container h1 {
-                color: #2d4356;
-                border-color: #e6f7ff;
-            }
-        }
-
-        .nav-item {
-            text-align: center;
-            color: black;
-            padding: 10px;
-            margin: 10px 0;
-            border-style: solid;
-            border-color: rgba(255, 255, 255, 0.3);
-            border-width: 1px;
-            cursor: pointer;
-            background: #fff;
-            border-radius: 15px;
-            transition: background-color 0.3s, color 0.3s;
-            width: 100px;
-            display: block;
-            /* 确保链接填满容器 */
-            text-decoration: none;
-            /* 移除下划线 */
-        }
-
-        .nav-item:hover {
-            background: #007bff;
-            color: #fff;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="image-container">
-            <img src="ESCAPE.png" alt="ESCAPE">
-        </div>
-        <div class="text-container">
-            <h1>ESCAPE</h1>
-            <p>智勇突围，一步到位</p>
-            <p>警报声划破寂静的夜空，熊猫小镇的危机迫在眉睫！面对步步逼近的神秘入侵者，熊猫们必须在有限时间内冲向稀奇动物城的中心，寻找生存的希望。然而，地图上的障碍、时间的压力、未知的变数……谁能在危机降临前，找到通往安全的道路？这不仅是速度的较量，更是智慧的考验！你，准备好迎接挑战了吗？
-            </p>
-            <a href="https://www.luogu.com.cn/problem/U530323" target="_blank" class="nav-item">了解更多</a>
-        </div>
-
-    </div>
-
-    <div class="container">
-        <div class="image-container">
-            <img src="LEGO STORAGE BOX.png" alt="LEGO">
-        </div>
-        <div class="text-container">
-            <h1>LEGO STORAGE BOX</h1>
-            <p>极简收纳，精准适配</p>
-            <p>假期来临，小熊猫兴奋地打包最爱的乐高模型。然而，背包空间有限，每个收纳箱的长度成了关键——如果分配不合理，模型就难以完美带回家！如何在有限的空间内精准安排零件，让它们既不乱序，又不浪费？最小长度是多少？这一切，等待你的解答！
-            </p>
-            <a href="https://www.luogu.com.cn/problem/U509049" target="_blank" class="nav-item">了解更多</a>
-        </div>
-    </div>
-    <div class="container">
-        <div class="image-container">
-            <img src="MONITOR.png" alt="MONITOR">
-        </div>
-        <div class="text-container">
-            <h1>MONITOR</h1>
-            <p>创新领导，重塑未来</p>
-            <p>每一票，都是一次革新。候选人们，准备迎接改变。 小熊猫班级竞选，智者领航，未来由你定义。 #小熊猫竞选 #不只是班长
-            </p>
-            <a href="https://www.luogu.com.cn/problem/T557771" target="_blank" class="nav-item">了解更多</a>
-        </div>
-    </div>
-    <div class="container">
-        <div class="image-container">
-            <img src="FACTORZATION.png" alt="FACTORZATION">
-        </div>
-        <div class="text-container">
-            <h1>FACTORZATION</h1>
-            <p>突破思维，定义数学</p>
-            <p>小熊猫的探索，不止于公式，更在于创新。 让因式分解，成为智慧的艺术。 #小熊猫研究 #数学无极限
-            </p>
-            <a href="https://www.luogu.com.cn/problem/T557772" target="_blank" class="nav-item">了解更多</a>
-        </div>
-    </div>
+    <div class="grid">
         <div class="container">
-        <div class="image-container">
-            <img src="BAD AFTERNOON.png" alt="BAD AFTERNOON">
+            <div class="image-container">
+                <img src="ESCAPE.png" alt="ESCAPE">
+            </div>
+            <div class="text-container">
+                <h1>ESCAPE</h1>
+                <p>一步突围，智慧决胜。</p>
+                <p>危机逼近，熊猫镇将何去何从？时间在倒计时，路线扑朔迷离，唯有冷静思考，才能逃出生天。</p>
+                <a href="https://www.luogu.com.cn/problem/U530323" target="_blank" class="nav-item">立即挑战</a>
+            </div>
         </div>
-        <div class="text-container">
-            <h1>BAD AFTERNOON</h1>
-            <p>「专注每一刻，成就每一步」 </p>
-            <p>在阳光与罚写之间，小熊猫学会了坚持。 Bad Afternoon，不只是惩罚，是成长的序章。 #小熊猫学习日记 #重新定义努力
-            </p>
-            <a href="https://www.luogu.com.cn/problem/U504976" target="_blank" class="nav-item">了解更多</a>
+
+        <div class="container">
+            <div class="image-container">
+                <img src="LEGO STORAGE BOX.png" alt="LEGO">
+            </div>
+            <div class="text-container">
+                <h1>LEGO BOX</h1>
+                <p>精准分配，完美收纳。</p>
+                <p>空间有限，搭建无限。你的选择，决定模型的命运。最小总长，藏着最大智慧。</p>
+                <a href="https://www.luogu.com.cn/problem/U509049" target="_blank" class="nav-item">立即思考</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="image-container">
+                <img src="MONITOR.png" alt="MONITOR">
+            </div>
+            <div class="text-container">
+                <h1>MONITOR</h1>
+                <p>竞选之战，重塑未来。</p>
+                <p>一票决定格局，一念改变方向。智慧的号角已吹响，准备好登上舞台了吗？</p>
+                <a href="https://www.luogu.com.cn/problem/T557771" target="_blank" class="nav-item">开启竞选</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="image-container">
+                <img src="FACTORZATION.png" alt="FACTORZATION">
+            </div>
+            <div class="text-container">
+                <h1>FACTORIZE</h1>
+                <p>分解公式，构建思维。</p>
+                <p>每个因式，都是一次认知重组。让公式不仅是规则，更是艺术。</p>
+                <a href="https://www.luogu.com.cn/problem/T557772" target="_blank" class="nav-item">挑战公式</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="image-container">
+                <img src="BAD AFTERNOON.png" alt="BAD AFTERNOON">
+            </div>
+            <div class="text-container">
+                <h1>BAD AFTERNOON</h1>
+                <p>专注，是对时间的尊重。</p>
+                <p>阳光刺眼，罚写沉重，却是成长的伏笔。越过阴影，才能看到光。</p>
+                <a href="https://www.luogu.com.cn/problem/U504976" target="_blank" class="nav-item">继续坚持</a>
+            </div>
         </div>
     </div>
 </body>
