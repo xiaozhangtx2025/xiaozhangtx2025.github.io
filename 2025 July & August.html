@@ -6,10 +6,19 @@
 	<title>能猫币汇率</title>
 	<script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 	<style>
+		:root {
+			--primary-color: 230, 247, 255;
+			--secondary-color: 255, 182, 193;
+			--blur-strength: 30px;
+		}
+
 		body {
 			margin: 0;
 			height: 100%;
-			background: linear-gradient(135deg, #e0e5ec, #ffffff);
+			/* background: linear-gradient(135deg, #e0e5ec, #ffffff); */
+			background: linear-gradient(145deg,
+					rgba(var(--primary-color), 0.7),
+					rgba(var(--secondary-color), 0.6));
 			color: #000;
 			font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 		}
@@ -328,7 +337,6 @@
 			},
 			tooltip: { trigger: 'axis', borderRadius: 15 },
 			grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-			toolbox: { feature: { saveAsImage: {} } },
 			xAxis: {
 				type: 'category',
 				boundaryGap: false,
