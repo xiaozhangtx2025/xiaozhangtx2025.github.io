@@ -42,6 +42,7 @@
             display: flex;
             justify-content: center;
             background-color: transparent;
+            padding-bottom: 80px;
         }
 
         .grid {
@@ -163,6 +164,42 @@
                 color: #333;
             }
         }
+
+        .navbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+            border-radius: 50px;
+            border: 1px solid var(--nav-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            z-index: 9999;
+        }
+
+        .navbar a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #333;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .navbar a:hover {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+
+        .navbar img {
+            width: 24px;
+            height: 24px;
+        }
     </style>
 </head>
 
@@ -225,6 +262,18 @@
                 <p>专注，是对时间的尊重。</p>
                 <p>阳光刺眼，罚写沉重，却是成长的伏笔。越过阴影，才能看到光。</p>
                 <a href="https://www.luogu.com.cn/problem/U504976" target="_blank" class="nav-item">继续坚持</a>
+            </div>
+        </div>
+
+                <div class="container">
+            <div class="image-container">
+                <img src="START TO STUDY.png" alt="START TO STUDY">
+            </div>
+            <div class="text-container">
+                <h1>START TO STUDY</h1>
+                <p>计算，是对思维的磨砺。</p>
+                <p>错题扎心，公式绕脑，却是蜕变的起点。掌握逻辑，才能预见未来。</p>
+                <a href="https://www.luogu.com.cn/problem/U500266" target="_blank" class="nav-item">继续加油</a>
             </div>
         </div>
     </div>
