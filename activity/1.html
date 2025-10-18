@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>能猫币赠送活动（1） - 密钥获取 KEY</title>
+  <style>
+    :root {
+      --primary-color: 200, 216, 255;
+      --secondary-color: 255, 182, 193;
+      --blur-strength: 30px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg,
+        rgba(var(--primary-color), 0.7),
+        rgba(var(--secondary-color), 0.6));
+      backdrop-filter: blur(var(--blur-strength));
+      -webkit-backdrop-filter: blur(var(--blur-strength));
+      z-index: -1;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      user-select: none;
+    }
+
+    .glass-card {
+      width: 420px;
+      padding: 40px 35px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+      transition: all 0.4s ease;
+    }
+
+    .glass-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12),
+        0 0 20px rgba(0, 149, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 18px;
+      font-size: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 15px;
+      text-align: center;
+      outline: none;
+      background: rgba(255, 255, 255, 0.4);
+      color: #333;
+      transition: 0.3s;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: rgba(0, 122, 255, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px 0;
+      margin-top: 8px;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 9999px;
+      background: rgba(0, 122, 255, 0.2);
+      color: #007aff;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      background: rgba(0, 122, 255, 0.35);
+      color: #fff;
+      transform: scale(1.03);
+    }
+
+    .key-display {
+      font-size: 1.4rem;
+      color: #111;
+      background: rgba(255, 255, 255, 0.35);
+      padding: 25px 45px;
+      border-radius: 22px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body oncontextmenu="return false" onselectstart="return false">
+  <div class="glass-card" id="login-box">
+    <h1>Please enter your username and password.</h1>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="passwd" placeholder="Password">
+    <button class="btn" onclick="login()">Sign in</button>
+    <button class="btn" onclick="doClear()">Clear</button>
+  </div>
+
+  <script>
+    // 禁止快捷键
+    document.onkeydown = function (event) {
+      if (
+        event.ctrlKey ||
+        event.altKey ||
+        event.shiftKey ||
+        event.keyCode === 123
+      ) {
+        return false;
+      }
+    };
+
+    // 模拟账户数据库
+    const accountAll = [
+      { username: "nengmaobi", passwd: "nengmaobikey" }
+    ];
+
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const passwd = document.getElementById("passwd").value.trim();
+      const account = accountAll.find(acc => acc.username === username);
+
+      const box = document.getElementById("login-box");
+      if (!account || account.passwd !== passwd) {
+        // 错误反馈动画
+        box.style.transform = "scale(0.97)";
+        box.style.borderColor = "rgba(255, 0, 0, 0.5)";
+        setTimeout(() => {
+          box.style.transform = "scale(1)";
+          box.style.borderColor = "rgba(255, 255, 255, 0.35)";
+        }, 250);
+      } else {
+        // 验证成功 -> 替换内容
+        document.body.innerHTML = `
+          <div class="key-display">
+            KEY：<strong>XIAOZHANG</strong>
+          </div>`;
+      }
+    }
+
+    function doClear() {
+      document.getElementById("username").value = "";
+      document.getElementById("passwd").value = "";
+    }
+  </script>
+</body>
+</html>
