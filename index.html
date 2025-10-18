@@ -2,281 +2,530 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PandaTeam</title>
-    <style>
-        :root {
-            --primary-color: 230, 247, 255;
-            --secondary-color: 255, 182, 193;
-            --blur-strength: 30px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PandaTeam</title>
+  <style>
+    :root {
+      --primary-color: 200, 216, 255;
+      --secondary-color: 255, 182, 193;
+      --blur-strength: 30px;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg,
-                    rgba(var(--primary-color), 0.7),
-                    rgba(var(--secondary-color), 0.6));
-            backdrop-filter: blur(var(--blur-strength));
-            -webkit-backdrop-filter: blur(var(--blur-strength));
-            z-index: -1;
-            pointer-events: none;
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg,
+          rgba(var(--primary-color), 0.7),
+          rgba(var(--secondary-color), 0.6));
+      backdrop-filter: blur(var(--blur-strength));
+      -webkit-backdrop-filter: blur(var(--blur-strength));
+      z-index: -1;
+      pointer-events: none;
+    }
 
-        body {
-            min-height: 100vh;
-            padding: 40px;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            background-color: transparent;
-            padding-bottom: 80px;
-        }
+    body {
+      min-height: 100vh;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      background-color: transparent;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
-            width: 100%;
-            max-width: 1400px;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1400px;
+    }
 
+    .container {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(31, 38, 135, 0.15);
+      padding: 20px;
+      transition: all 0.4s ease;
+    }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-radius: 24px;
-            backdrop-filter: blur(18px) saturate(180%);
-            -webkit-backdrop-filter: blur(18px) saturate(180%);
-            box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.3),
-                0 8px 32px rgba(31, 38, 135, 0.15);
-            padding: 20px;
-            transition: all 0.4s ease;
-        }
+    .container:hover {
+      transform: scale(1.015);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12),
+        0 0 20px rgba(0, 149, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
 
-        .container:hover {
-            transform: scale(1.015);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12),
-                0 0 20px rgba(0, 149, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
+    .image-container {
+      flex: 1 1 400px;
+      min-width: 300px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
 
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        .image-container {
-            flex: 1 1 400px;
-            min-width: 300px;
-            border-radius: 20px;
-            overflow: hidden;
-        }
+    .text-container {
+      flex: 1 1 300px;
+      min-width: 250px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: #3b4a5a;
+    }
 
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+    .text-container h1 {
+      font-size: 2.5rem;
+      color: #111;
+      font-weight: 600;
+    }
 
-        .text-container {
-            flex: 1 1 300px;
-            min-width: 250px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            color: #3b4a5a;
-        }
+    .text-container p {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.6;
+    }
 
-        .text-container h1 {
-            font-size: 2.5rem;
-            color: #111;
-            font-weight: 600;
-        }
+    .nav-item {
+      width: fit-content;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+      color: #007aff;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+    }
 
-        .text-container p {
-            font-size: 1.05rem;
-            color: #555;
-            line-height: 1.6;
-        }
+    .nav-item:hover {
+      background: rgba(0, 122, 255, 0.15);
+      color: #0050c8;
+      transform: scale(1.05);
+    }
 
-        .nav-item {
-            width: fit-content;
-            padding: 10px 16px;
-            font-size: 0.95rem;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-radius: 14px;
-            color: #007aff;
-            text-decoration: none;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
+    /* 背景遮罩 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 15, 15, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
 
-        .nav-item:hover {
-            background: rgba(0, 122, 255, 0.15);
-            color: #0050c8;
-            transform: scale(1.05);
-        }
+    .modal-overlay.fadeIn {
+      animation: fadeIn 0.4s ease forwards;
+    }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
+    .modal-overlay.fadeOut {
+      animation: fadeOut 0.4s ease forwards;
+    }
 
-            .container {
-                flex-direction: column;
-                padding: 16px;
-            }
+    /* 弹窗主体 */
+    .modal {
+      width: 90%;
+      max-width: 700px;
+      /* height: 55vh; */
+      background: linear-gradient(145deg,
+          rgba(var(--primary-color)),
+          rgba(var(--secondary-color), 0.95));
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInUp 0.4s ease;
+    }
 
-            .text-container h1 {
-                font-size: 2rem;
-            }
-        }
+    /* 弹窗头部 */
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
 
-        @supports not (backdrop-filter: blur(1px)) {
-            body::before {
-                background: #e6f7ff;
-            }
+    .modal-header h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 0;
+      flex: 1;
+    }
 
-            .container {
-                background: white;
-                border: 1px solid #ccc;
-                box-shadow: none;
-            }
+    .header-btn {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 10px;
+      color: #007aff;
+      transition: all 0.3s ease;
+    }
 
-            .text-container {
-                color: #333;
-            }
-        }
+    .header-btn:hover {
+      background: rgba(0, 122, 255, 0.15);
+    }
 
-        .navbar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            background: var(--nav-bg);
-            backdrop-filter: blur(var(--blur-strength)) saturate(180%);
-            -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
-            border-radius: 50px;
-            border: 1px solid var(--nav-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 10px 20px;
-            z-index: 9999;
-        }
+    .close-btn {
+      font-size: 1.5rem;
+      color: #333;
+    }
 
-        .navbar a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #333;
-            transition: transform 0.25s ease, color 0.25s ease;
-        }
+    /* 内容 */
+    .modal-content {
+      flex: 1;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #222;
+      margin-bottom: 20px;
+      animation: fadeIn 0.5s ease;
+    }
 
-        .navbar a:hover {
-            transform: scale(1.1);
-            color: var(--primary-color);
-        }
+    /* 底部导航栏 */
+    .modal-nav {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+    }
 
-        .navbar img {
-            width: 24px;
-            height: 24px;
-        }
-    </style>
+    .tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 9999px;
+      background: transparent;
+      border: none;
+      color: #007aff;
+      font-size: 0.95rem;
+      transition: background 0.4s ease, color 0.4s ease;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 239, 239, 0.7);
+      color: black;
+    }
+
+    .tab-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* 动画 */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="grid">
-        <div class="container">
-            <div class="image-container">
-                <img src="ESCAPE.png" alt="ESCAPE">
-            </div>
-            <div class="text-container">
-                <h1>ESCAPE</h1>
-                <p>一步突围，智慧决胜。</p>
-                <p>危机逼近，熊猫镇将何去何从？时间在倒计时，路线扑朔迷离，唯有冷静思考，才能逃出生天。</p>
-                <a href="https://www.luogu.com.cn/problem/U530323" target="_blank" class="nav-item">立即挑战</a>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="image-container">
-                <img src="LEGO STORAGE BOX.png" alt="LEGO">
-            </div>
-            <div class="text-container">
-                <h1>LEGO BOX</h1>
-                <p>精准分配，完美收纳。</p>
-                <p>空间有限，搭建无限。你的选择，决定模型的命运。最小总长，藏着最大智慧。</p>
-                <a href="https://www.luogu.com.cn/problem/U509049" target="_blank" class="nav-item">立即思考</a>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="image-container">
-                <img src="MONITOR.png" alt="MONITOR">
-            </div>
-            <div class="text-container">
-                <h1>MONITOR</h1>
-                <p>竞选之战，重塑未来。</p>
-                <p>一票决定格局，一念改变方向。智慧的号角已吹响，准备好登上舞台了吗？</p>
-                <a href="https://www.luogu.com.cn/problem/T557771" target="_blank" class="nav-item">开启竞选</a>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="image-container">
-                <img src="FACTORZATION.png" alt="FACTORZATION">
-            </div>
-            <div class="text-container">
-                <h1>FACTORIZE</h1>
-                <p>分解公式，构建思维。</p>
-                <p>每个因式，都是一次认知重组。让公式不仅是规则，更是艺术。</p>
-                <a href="https://www.luogu.com.cn/problem/T557772" target="_blank" class="nav-item">挑战公式</a>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="image-container">
-                <img src="BAD AFTERNOON.png" alt="BAD AFTERNOON">
-            </div>
-            <div class="text-container">
-                <h1>BAD AFTERNOON</h1>
-                <p>专注，是对时间的尊重。</p>
-                <p>阳光刺眼，罚写沉重，却是成长的伏笔。越过阴影，才能看到光。</p>
-                <a href="https://www.luogu.com.cn/problem/U504976" target="_blank" class="nav-item">继续坚持</a>
-            </div>
-        </div>
-
-                <div class="container">
-            <div class="image-container">
-                <img src="START TO STUDY.png" alt="START TO STUDY">
-            </div>
-            <div class="text-container">
-                <h1>START TO STUDY</h1>
-                <p>计算，是对思维的磨砺。</p>
-                <p>错题扎心，公式绕脑，却是蜕变的起点。掌握逻辑，才能预见未来。</p>
-                <a href="https://www.luogu.com.cn/problem/U500266" target="_blank" class="nav-item">继续加油</a>
-            </div>
-        </div>
+  <div class="grid">
+    <div class="container">
+      <div class="image-container">
+        <img src="ESCAPE.png" alt="ESCAPE">
+      </div>
+      <div class="text-container">
+        <h1>ESCAPE</h1>
+        <p>一步突围，智慧决胜。</p>
+        <p>危机逼近，熊猫镇将何去何从？时间在倒计时，路线扑朔迷离，唯有冷静思考，才能逃出生天。</p>
+        <a class="nav-item" data-id="escape">立即挑战</a>
+      </div>
     </div>
+
+    <div class="container">
+      <div class="image-container">
+        <img src="LEGO STORAGE BOX.png" alt="LEGO">
+      </div>
+      <div class="text-container">
+        <h1>LEGO BOX</h1>
+        <p>精准分配，完美收纳。</p>
+        <p>空间有限，搭建无限。你的选择，决定模型的命运。最小总长，藏着最大智慧。</p>
+        <a class="nav-item" data-id="lego">立即思考</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="image-container">
+        <img src="MONITOR.png" alt="MONITOR">
+      </div>
+      <div class="text-container">
+        <h1>MONITOR</h1>
+        <p>竞选之战，重塑未来。</p>
+        <p>一票决定格局，一念改变方向。智慧的号角已吹响，准备好登上舞台了吗？</p>
+        <a class="nav-item" data-id="monitor">开启竞选</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="image-container">
+        <img src="FACTORZATION.png" alt="FACTORZATION">
+      </div>
+      <div class="text-container">
+        <h1>FACTORIZE</h1>
+        <p>分解公式，构建思维。</p>
+        <p>每个因式，都是一次认知重组。让公式不仅是规则，更是艺术。</p>
+
+        <a class="nav-item" data-id="factorize">挑战公式</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="image-container">
+        <img src="BAD AFTERNOON.png" alt="BAD AFTERNOON">
+      </div>
+      <div class="text-container">
+        <h1>BAD AFTERNOON</h1>
+        <p>专注，是对时间的尊重。</p>
+        <p>阳光刺眼，罚写沉重，却是成长的伏笔。越过阴影，才能看到光。</p>
+
+        <a class="nav-item" data-id="bad">继续坚持</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="image-container">
+        <img src="START TO STUDY.png" alt="START TO STUDY">
+      </div>
+      <div class="text-container">
+        <h1>START TO STUDY</h1>
+        <p>计算，是对思维的磨砺。</p>
+        <p>错题扎心，公式绕脑，却是蜕变的起点。掌握逻辑，才能预见未来。</p>
+        <a class="nav-item" data-id="start">继续加油</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 弹窗 -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">标题</h2>
+        <button class="header-btn jump-btn">跳转</button>
+        <button class="header-btn close-btn">&times;</button>
+      </div>
+      <div class="modal-content" id="modal-content">
+        <p>内容加载中……</p>
+      </div>
+      <div class="modal-nav">
+        <button class="tab-btn active" data-tab="intro">简介</button>
+        <button class="tab-btn" data-tab="author">出题者</button>
+        <button class="tab-btn" data-tab="level">难度</button>
+        <button class="tab-btn" data-tab="tags">标签</button>
+        <button class="tab-btn" data-tab="limit">限制</button>
+        <button class="tab-btn" data-tab="score">分数</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById("modal-overlay");
+    const closeBtn = document.querySelector(".close-btn");
+    const jumpBtn = document.querySelector(".jump-btn");
+    const navItems = document.querySelectorAll(".nav-item");
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const modalContent = document.getElementById("modal-content");
+    const modalTitle = document.getElementById("modal-title");
+
+    // 定义不同卡片的内容
+    const cardContents = {
+      escape: {
+        title: "ESCAPE",
+        intro: `<p><b>一步突围，智慧决胜。</b><br>危机逼近，熊猫镇将何去何从？</p><p style="padding-top:15px">熊猫小镇最高领导哈里正拿着一张n×n的熊猫小镇地图，经专家预估，入侵者将在m个单位时间之后就要抵达熊猫小镇。若不能在入侵者抵达之前进入稀奇动物城城中心避难，就会……</p><p>已知熊猫城地图上存在三种位置，.表示可通行的格子。#表示不可到达的格子，*表示稀奇动物城城中心。该地图上的熊猫在一个单位时间内可以从一个格子到达上下左右相邻的任意一个格子。</p><p>根据熊猫城地图信息，计算有多少个空地格子上的熊猫可以在m个单位时间内到达城市。</p><p>注意：移动过程中不能超过边界</p>`,
+        author: `<p>出题者：XiaozhangTX - 哈利团队</p>`,
+        level: `<p>普及 / 提高−</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p>时间限制 0.50s</p>
+        <p>内存限制 128.00MB</p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点：5个</p>
+        <p>测试点1,2,3,4,5：20分</p>`,
+        link: "https://www.luogu.com.cn/problem/T664704"
+      },
+      lego: {
+        title: "LEGO BOX",
+        intro: `<p><b>精准分配，完美收纳。</b><br>空间有限，搭建无限。</p><p style="padding-top:15px>叮铃铃！放假的铃声响起，小熊猫开始打包自己的物品。<p>小熊猫有一个在学校里有一个非常喜欢的乐高模型，这次放假小熊猫准备把这个乐高模型带回家。</p><p>这个乐高模型共由 n 块零件组成，每个零件有一个长度 ai</p><p>为了保证自己回到家后能快速组装这个模型，小熊猫在收纳时不能打乱零件的顺序。</p><p>已知小熊猫的小背包总共只能放 m 个收纳箱。现在小熊猫想知道自己的收纳箱最小的长度可以是多少？</p>`,
+        author: `<p>出题者：XiaozhangTX - 哈利团队</p>`,
+        level: `<p>普及 / 提高−</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p><p>时间限制 1.00s</p>
+        <p>内存限制 128.00MB</p></p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点：6个</p>
+        <p>测试点1,2,4,5：15分</p>
+        <p>测试点3,6：20分</p>`,
+        link: "https://www.luogu.com.cn/problem/U509049"
+      },
+      monitor: {
+        title: "MONITOR",
+        intro: `<p><b>竞选之战，重塑未来。</b></p>
+        <p>一票决定格局，一念改变方向。智慧的号角已吹响，准备好登上舞台了吗？</p>
+        <p style="padding-top:15px>在即将举行的小熊猫班级班干部竞选活动中，班主任鲨鱼老师正面临着一项颇为棘手的挑战，他深感忧虑与头疼。作为班级的灵魂人物，班主任深知班长一职的重要性，它不仅要求候选人具备卓越的领导能力、良好的沟通协调能力，还需拥有高度的责任心与团队精神。鉴于这一职位的特殊性，鲨鱼老师急需一位能够引领班级走向更加和谐与进步道路的优秀候选人。在此关键时刻，你代表鲨鱼老师，帮助他竞选出最优秀的班长。</p>
+        <p>给定侯选人姓名及其数量，候选人的几项指标，所有同学的数量，以及所有同学心中合适的候选人的几项标准；输出所有候选人的票数，以及按票数从高到低的候选人姓名。</p>`,
+        author: `<p>出题者：August</p>`,
+        level: `<p>普及-</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p>时间限制：1.00s</p><p>空间限制：512.00MB</p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点：2个</p>
+        <p>测试点1,2：50分</p>`,
+        link: "https://www.luogu.com.cn/problem/T557771"
+      },
+      factorize: {
+        title: "FACTORIZE",
+        intro: `<p><b>分解公式，构建思维。</b></p><p>每个因式，都是一次认知重组。让公式不仅是规则，更是艺术。</p><p style="padding-top:15px">小熊猫仍在研究，一天他遇到了一道题：分解因式x_3+10x_2+14x+8,这回小熊猫的技术有所长进，他利用因式定理很快求出了原式有因式x+1,x+2,x+4。但接下来的一题可把小熊猫难住了：已知x_3+ax_2+bx+8有一次因式x+1,x+4,求a,b。请有出息且不打折的你帮助他攻破这一技术难题。</p><p>给出ax_3+mx_2+nx+b中的a,b以及该式的一次因式cx+d,ex+f中c,d,e,f，输出m,n的值。</p>`,
+        author: `<p>出题者：August</p>`,
+        level: `<p>普及-</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p>时间限制：1.00s</p><p>空间限制：512.00MB</p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点：10个</p>
+        <p>测试点1-10：10分</p>`,
+        link: "https://www.luogu.com.cn/problem/T557772"
+      },
+      bad: {
+        title: "BAD AFTERNOON",
+        intro: `<p><b>专注，是对时间的尊重。</b></p>
+        <p>阳光刺眼，罚写沉重，却是成长的伏笔。越过阴影，才能看到光。</p>
+        <p style="padding-top:15px">由于熊猫同学太贪玩了，在被班主任鲨鱼考单词时一个也没说出来，导致班主任鲨鱼非常生气，便罚了熊猫一个下午的禁闭。期中考快到了，Ms.张整理出了一些易错英语单词，在关禁闭时，熊猫要把Ms.张的易错单词按字母序摆列。因为熊猫约好了五点要和WLC打球，请你帮熊猫完成Ms.张的任务</p><p>给定易错单词的数量和内容，输出按字典序排序后的易错单词</p>`,
+        author: `<p>出题者：August</p>`,
+        level: `<p>普及-</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p>时间限制：1.00s</p><p>空间限制：512.00MB</p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点情况：暂不明确</p>`,
+        link: "https://www.luogu.com.cn/problem/U504976"
+      },
+      start: {
+        title: "START TO STUDY",
+        intro: `<p><b>计算，是对思维的磨砺。</b></p>
+        <p>错题扎心，公式绕脑，却是蜕变的起点。掌握逻辑，才能预见未来。</p>
+        <p style="padding-top:15px">小熊猫开始了自己的学习，有一天他被数学老师考一道数学题，a+b，a-b，a*b，a/b作为一只动物界-脊索动物门-哺乳纲-食肉目-熊科-猫熊属-熊猫种，他天生就不擅长计算数学题，请你帮他一下。</p>`,
+        author: `<p>出题者：Wang Liangchen</p>`,
+        level: `<p>NOI/NOI+/CTSC</p>`,
+        tags: `<p>暂未评定</p>`,
+        limit: `<p>时间限制：1.00s</p><p>空间限制：512.00MB</p>`,
+        score: `<p>总分：100分</p>
+        <p>测试点情况：暂不明确</p>`,
+        link: "https://www.luogu.com.cn/problem/U500266"
+      }
+    };
+
+    let currentCard = "escape";
+
+    // 点击卡片按钮 -> 弹窗
+    navItems.forEach(item => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentCard = item.getAttribute("data-id");
+        showModal(currentCard);
+      });
+    });
+
+    // 显示弹窗
+    function showModal(card) {
+      overlay.classList.remove("fadeOut");
+      overlay.style.display = "flex";
+      overlay.classList.add("fadeIn");
+      modalTitle.textContent = cardContents[card].title;
+      modalContent.innerHTML = cardContents[card].intro;
+      jumpBtn.onclick = () => window.open(cardContents[card].link, "_blank");
+      resetTabs();
+    }
+
+    // 关闭按钮（淡出效果）
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.remove("fadeIn");
+      overlay.classList.add("fadeOut");
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 400);
+    });
+
+    // Tab 切换
+    tabBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".tab-btn.active").classList.remove("active");
+        btn.classList.add("active");
+
+        modalContent.style.opacity = 0;
+        setTimeout(() => {
+          modalContent.innerHTML = cardContents[currentCard][btn.dataset.tab];
+          modalContent.style.opacity = 1;
+        }, 300);
+      });
+    });
+
+    function resetTabs() {
+      document.querySelector(".tab-btn.active").classList.remove("active");
+      tabBtns[0].classList.add("active");
+    }
+  </script>
 </body>
 
 </html>
